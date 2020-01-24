@@ -1,0 +1,14 @@
+#!/bin/bash
+
+bazel query 'deps(...)' --output graph > /tmp/graph.in && \
+dot -Tpng < /tmp/graph.in > dependency.png
+
+echo ""
+echo "==== Universe Packages ===="
+bazel query '...' --output package
+echo ""
+echo "==== Universe Rules ===="
+bazel query 'kind(rule, //...)' --output label_kind
+
+
+## --universe_scope=

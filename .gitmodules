@@ -1,0 +1,9 @@
+[submodule "repos/logging-library"]
+	path = repos/logging-library
+	url = /home/appsadm/workbench/OpenStartUp/logging-library
+[submodule "repos/config-lib"]
+	path = repos/config-lib
+	url = /home/appsadm/workbench/OpenStartUp/config-lib
+[submodule "repos/pet-service"]
+	path = repos/pet-service
+	url = /home/appsadm/workbench/OpenStartUp/pet-service
