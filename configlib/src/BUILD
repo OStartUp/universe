@@ -6,14 +6,15 @@ load("@rules_python//experimental/python:wheel.bzl", "py_package", "py_wheel")
 
 py_library(
     name = "config",
-    srcs = ["config.py", "__init__.py"],
+    srcs = [":srcs"],
     deps = [requirement("ruamel.yaml")]
 )
 
-# filegroup(
-#     name = "srcs",
-#     srcs = ["BUILD"] + glob(["**/*.py"]),
-# )
+##IMPORTANT Making BUILD as part of the dependencies for py_library
+filegroup(
+    name = "srcs",
+    srcs = ["BUILD"] + glob(["**/*.py"]),
+)
 
 
 

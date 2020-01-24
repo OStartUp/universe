@@ -2,21 +2,29 @@
 package(default_visibility = ["//visibility:public"]) 
 
 
+filegroup(
+    name = "srcs_logger",
+    srcs = ["BUILD"] + ["logger.py"],
+)
 
 py_library(
     name = "logger",
-    srcs = ["logger.py"],
+    srcs = [":srcs_logger"],
     srcs_version = "PY3",
     imports= ["config"],
     deps = ["//configlib/src:config"],
 )
 
 
+filegroup(
+    name = "srcs_dummy",
+    srcs = ["BUILD"] + ["dummy.py"],
+)
 
 
 py_binary(
     name = "dummy",
-    srcs = ["dummy.py"],
+    srcs = [":srcs_dummy"],
     srcs_version = "PY3",
     imports= ["config"],
     deps = [":logger", "//configlib/src:config"], 
