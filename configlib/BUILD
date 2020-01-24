@@ -16,7 +16,28 @@ filegroup(
     srcs = ["BUILD"] + glob(["**/*.py"]),
 )
 
+py_test(
+    name = "test_config",
+    srcs = ["test/test_config.py"],
+    deps = [":config"],
+    imports = [":config"]
+)
 
+py_test(
+    name = "test_utils",
+    srcs = ["test/test_utils.py"],
+    deps = [":config"],
+    imports = [":config"]
+)
+
+
+test_suite(
+    name = "all_tests",
+    tests = [
+        "test_config",
+        "test_utils",
+    ],
+)
 
 ## ---------------
 # Example creating a wheel
