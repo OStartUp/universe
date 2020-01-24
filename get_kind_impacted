@@ -1,0 +1,16 @@
+#!/bin/bash
+> /tmp/changed_files
+
+git diff --name-only $2 $3 > /tmp/changed_files
+
+> /tmp/impacted_rules_tmp
+while read p; do
+  echo "Fetching $p"
+  bazel query "kind($1, rdeps(//..., $p))" 2> /dev/null >> /tmp/impacted_rules_tmp
+done < /tmp/changed_files
+
+(cat /tmp/impacted_rules_tmp | sort | uniq) > /tmp/impacted_rules 
+cat /tmp/impacted_rules 
+
+# ./get_kind_impacted binary  756dbdc073430ee53d9ed1b227ac6155c6f4bfea
+# cat  /tmp/impacted_rules  | xargs bazel build

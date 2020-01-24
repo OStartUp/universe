@@ -1,0 +1,13 @@
+#!/bin/bash
+> /tmp/changed_files
+
+git diff --name-only $1 $2 > /tmp/changed_files
+
+> /tmp/impacted_rules
+while read p; do
+  echo "Fetching $p"
+  bazel query "rdeps(//..., $p)" >> /tmp/impacted_rules_tmp
+done < /tmp/changed_files
+
+(cat /tmp/impacted_rules_tmp | sort | uniq) > /tmp/impacted_rules 
+cat /tmp/impacted_rules 
