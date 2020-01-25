@@ -6,6 +6,7 @@ case $1 in
         *)  export IMPLICIT = "--noimplicit_deps"
 esac
 
+> /tmp/graph.in
 bazel query 'deps(...)' $IMPLICIT --output graph > /tmp/graph.in && \
 dot -Tpng < /tmp/graph.in > dependency.png
 
