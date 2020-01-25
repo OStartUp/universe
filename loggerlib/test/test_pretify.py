@@ -3,7 +3,7 @@ Test One
 """
 
 import unittest
-from logginglib.pretify import decorate
+from loggerlib.pretify import decorate
 
 
 class TestUtils(unittest.TestCase):

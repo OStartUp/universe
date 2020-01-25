@@ -1,6 +1,12 @@
 #!/bin/bash
+IMPLICIT="--noimplicit_deps"
+case $1 in
+        -f) export IMPLICIT=""            
+        ;;
+        *)  export IMPLICIT = "--noimplicit_deps"
+esac
 
-bazel query 'deps(...)' --output graph > /tmp/graph.in && \
+bazel query 'deps(...)' $IMPLICIT --output graph > /tmp/graph.in && \
 dot -Tpng < /tmp/graph.in > dependency.png
 
 echo ""

@@ -2,7 +2,7 @@
 
 # from config import getConfig
 from configlib import getConfig
-from logginglib.pretify import decorate
+from loggerlib.pretify import decorate
 
 def testeable(param):
     return param

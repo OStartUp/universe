@@ -1,4 +1,4 @@
-from logginglib.logger import logg
+from loggerlib.logger import logg
 
 def main():
     logg("DUMMY!")

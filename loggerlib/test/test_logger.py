@@ -3,7 +3,7 @@ Test One
 """
 
 import unittest
-from logginglib.logger import testeable, logg
+from loggerlib.logger import testeable, logg
 
 
 class TestConfig(unittest.TestCase):

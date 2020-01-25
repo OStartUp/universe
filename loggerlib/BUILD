@@ -42,13 +42,13 @@ py_test(
 )
 
 
-test_suite(
-    name = "test_all_logger",
-    tests = [
-        "test_pretify",
-        "test_logger",
-    ],
-)
+# test_suite(
+#     name = "test_all_logger",
+#     tests = [
+#         "test_pretify",
+#         "test_logger",
+#     ],
+# )
 
 
 # config_pkg

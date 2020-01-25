@@ -13,7 +13,7 @@ py_library(
 ##IMPORTANT Making BUILD as part of the dependencies for py_library
 filegroup(
     name = "srcs",
-    srcs = ["BUILD"] + glob(["**/*.py"]),
+    srcs = ["BUILD"] + glob(["*.py"]),
 )
 
 py_test(
@@ -31,13 +31,13 @@ py_test(
 )
 
 
-test_suite(
-    name = "all_tests",
-    tests = [
-        "test_config",
-        "test_utils",
-    ],
-)
+# test_suite(
+#     name = "all_tests",
+#     tests = [
+#         "test_config",
+#         "test_utils",
+#     ],
+# )
 
 ## ---------------
 # Example creating a wheel
