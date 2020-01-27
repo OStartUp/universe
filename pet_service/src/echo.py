@@ -4,6 +4,7 @@ from werkzeug.routing import Rule
 from optparse import OptionParser
 from pprint import pprint
 import time
+from loggerlib.logger import logg
 
 VERBOSE = 'verbose'
 BASIC_AUTH = 'basic_auth'
@@ -87,7 +88,7 @@ def echo(path):
     return response
 
 def main():
-    print("STARTING!!!!") 
+    logg("STARTING - WITH LOGG!!!!") 
     parser = OptionParser()
     parser.add_option('--port', dest='port', default=5000, help='port to run server on - default 5000')
     parser.add_option('--host', dest='host', default='127.0.0.1', help='host to bind server on - default 127.0.0.1')

@@ -9,5 +9,5 @@ def testeable(param):
 
 def logg(msg):
     config = decorate(getConfig())
-    print(f"{config} - {msg}")
+    print("{config} - {msg}".format(config=config, msg=msg))
     return msg

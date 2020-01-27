@@ -1,3 +1,3 @@
 
 def decorate(msg):
-    return f"~~ {msg} ~~" 
+    return "~~ {msg} ~~".format(msg=msg) 

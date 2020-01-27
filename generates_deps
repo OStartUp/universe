@@ -6,13 +6,21 @@ case $1 in
         *)  export IMPLICIT="--noimplicit_deps --notool_deps"
 esac
 
+echo "Generating Dependency Rules"
 > /tmp/graph_rules.in
 bazel query 'kind(rule,deps(...))' $IMPLICIT --output graph > /tmp/graph_rules.in && \
 dot -Tpng < /tmp/graph_rules.in > dependency_rules.png
 #'filter("symlinks",deps(...))'
+
+echo "Generating Dependency"
 > /tmp/graph_all.in
 bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|.reversed|.delete|.replace)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
 dot -Tpng < /tmp/graph_all.in > dependency.png
+
+echo "Generating Dependency (without extenal)"
+> /tmp/graph_all_internal.in
+bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|.reversed|.delete|.replace|@)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all_internal.in && \
+dot -Tpng < /tmp/graph_all_internal.in > dependency_internals.png
 
 echo ""
 echo "==== Universe Packages ===="

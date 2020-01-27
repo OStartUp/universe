@@ -7,7 +7,7 @@ git diff --name-only $1 $2 > /tmp/changed_files
 > /tmp/impacted_rules
 while read p; do
   echo "Fetching $p"
-  bazel query "rdeps(//..., $p)" --output label_kind >> /tmp/impacted_rules_tmp
+  bazel query "rdeps(//..., $p)" --output label_kind >> /tmp/impacted_rules_tmp 2>/dev/null
 done < /tmp/changed_files
 
 (cat /tmp/impacted_rules_tmp | sort | uniq) > /tmp/impacted_rules 
