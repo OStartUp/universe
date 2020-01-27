@@ -23,8 +23,10 @@ pip_install()
 
 
 ####
-####
-####
+#### Docker
+#### https://github.com/bazelbuild/rules_docker/blob/master/README.md#setup
+#### 
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Download the rules_docker repository at release v0.14.1
@@ -35,35 +37,38 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.14.1/rules_docker-v0.14.1.tar.gz"],
 )
 
+
+
 load(
-    "@io_bazel_rules_docker//python3:image.bzl",
-    _py_image_repos = "repositories",
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+container_repositories()
+
+# This is NOT needed when going through the language lang_image
+# "repositories" function(s).
+#load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+#container_deps()
+
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
 )
 
+container_pull(
+  name = "python3_base",
+  registry = "gcr.io",
+  repository = "distroless/java",
+  # 'tag' is also supported, but digest is encouraged for reproducibility.
+  digest = "sha256:deadbeef",
+)
+
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
+container_repositories()
+
+load("@io_bazel_rules_docker//python3:image.bzl", _py_image_repos = "repositories")
 _py_image_repos()
 
-
-# load(
-#     "@io_bazel_rules_docker//repositories:repositories.bzl",
-#     container_repositories = "repositories",
-# )
-# container_repositories()
-
-# # This is NOT needed when going through the language lang_image
-# # "repositories" function(s).
-# load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
-
-# container_deps()
-
-# load(
-#     "@io_bazel_rules_docker//container:container.bzl",
-#     "container_pull",
-# )
-
-# container_pull(
-#   name = "java_base",
-#   registry = "gcr.io",
-#   repository = "distroless/java",
-#   # 'tag' is also supported, but digest is encouraged for reproducibility.
-#   digest = "sha256:deadbeef",
-# )
+### 
+### END DOCKER
+### 

@@ -1,33 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@marcecaro
-whwright /
-flask-echo-server
-
-1
-11
-
-    5
-
-Code
-Issues 0
-Pull requests 0
-Actions
-Projects 0
-Wiki
-Security
-Insights
-flask-echo-server/echo.py /
-@whwright whwright Single quotes defe2c6 on Jun 2, 2018
-@whwright
-@krzynio
-116 lines (94 sloc) 3.52 KB
-You're using code navigation to jump to definitions or references.
-Learn more or give us feedback
 from flask import Flask, jsonify, request, Response
 from functools import wraps
 from werkzeug.routing import Rule

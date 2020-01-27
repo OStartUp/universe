@@ -1,0 +1,28 @@
+## https://github.com/GoogleContainerTools/container-structure-test
+schemaVersion: '1.0.0'
+commandTests:
+  - name: 'echo'
+    command: ['sh', '-c', 'echo probe']
+    expectedOutput: ['probe']
+  - name: 'path'
+    command: ['sh', '-c', 'echo $PATH']
+    expectedOutput: ['/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin']
+fileExistenceTests:
+  - name: 'Root'
+    path: '/'
+    shouldExist: true
+  - name: 'Application'
+    path: '/app'
+    permissions: 'drwxr-xr-x'
+    shouldExist: true
+# fileContentTests:
+#   - name: 'Debian Sources'
+#     excludedContents: ['.*gce_debian_mirror.*']
+#     expectedContents: ['.*httpredir\.debian\.org.*']
+#     path: '/etc/apt/sources.list'
+#   - name: 'Wrong Retry Policy'
+#     expectedContents: ['Acquire::Retries 4;']
+#     path: '/etc/apt/apt.conf.d/apt-retry'
+# licenseTests:
+#   - debian: true
+#     files:
