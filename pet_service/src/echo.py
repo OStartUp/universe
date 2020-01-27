@@ -15,7 +15,6 @@ config = {
     VERBOSE: False
 }
 
-
 app = Flask(__name__)
 
 app.url_map.add(Rule('/', defaults={'path' : ''}, endpoint='index'))
