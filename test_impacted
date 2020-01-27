@@ -1,4 +1,16 @@
 #!/bin/bash
-./get_kind_impacted test
-cat  /tmp/impacted_rules  | xargs bazel test
 
+./get_kind_impacted test
+
+
+if [ -s "/tmp/impacted_rules" ] 
+then
+	echo ""
+    echo ""
+    echo "Testing changes"
+    cat  /tmp/impacted_rules  | xargs bazel test 
+else
+	echo ""
+    echo ""
+    echo "No tests impacted... (ignoring)"
+fi

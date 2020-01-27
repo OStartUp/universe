@@ -1,3 +1,15 @@
 #!/bin/bash
 ./get_kind_impacted _run_all 
-cat  /tmp/impacted_rules | grep .apply  | xargs bazel run 
+
+if [ -s "/tmp/impacted_rules" ] 
+then
+	echo ""
+    echo ""
+    echo "Applying changes"
+    cat  /tmp/impacted_rules | grep .apply  | xargs bazel run 
+else
+	echo ""
+    echo ""
+    echo "No target impacted... (ignoring)"
+fi
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+echo "### TESTING ###"
+./test_impacted
+
+echo ""
+echo ""
+echo "" 
+echo "### DEPLOYING ###"
+./deploy_impacted
