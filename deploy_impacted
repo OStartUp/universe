@@ -1,0 +1,3 @@
+#!/bin/bash
+./get_kind_impacted _run_all 
+cat  /tmp/impacted_rules | grep .apply  | xargs bazel run 

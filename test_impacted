@@ -1,0 +1,4 @@
+#!/bin/bash
+./get_kind_impacted test
+cat  /tmp/impacted_rules  | xargs bazel test
+
