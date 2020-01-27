@@ -12,6 +12,7 @@ done < /tmp/changed_files
 (cat /tmp/impacted_rules_tmp | sort | uniq) > /tmp/impacted_rules 
 cat /tmp/impacted_rules 
 
+# echo " " >>  loggerlib/pretify.py 
 # ./get_kind_impacted binary  756dbdc073430ee53d9ed1b227ac6155c6f4bfea
 # cat  /tmp/impacted_rules  | xargs bazel build
 # cat  /tmp/impacted_rules  | xargs bazel test

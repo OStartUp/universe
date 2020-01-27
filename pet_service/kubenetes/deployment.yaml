@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: echo-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echo-deploy
+    spec:
+      containers:
+        - name: echo-server
+          image: marcecaro/echo:latest
+          imagePullPolicy: Always
+          # ports:
+          # - containerPort: 5000
+ 

@@ -7,18 +7,24 @@ load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
 load("@my_deps//:requirements.bzl", "requirement")
 
 py3_image(
-    name = "echo_service",
+    name = "echo_image",
     srcs = ["echo.py"],
     main = "echo.py",
     layers = [ ## Is like deps, but layered
             "//configlib:config", "//loggerlib:logger",
-            requirement("flask")
+            requirement("flask"),
+            requirement("jinja2"),
+            requirement("markupsafe"),
+            requirement("werkzeug"),
+            requirement("itsdangerous"),
+            requirement("click"),
+            
           ],
     data = [ "BUILD"],
 )
 
 container_test(
     name = "StructureTests",
-    image = ":echo_service",
+    image = ":echo_image",
     configs = [":tests/structure.yaml"]
 )

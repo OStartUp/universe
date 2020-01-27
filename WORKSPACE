@@ -69,6 +69,64 @@ container_repositories()
 load("@io_bazel_rules_docker//python3:image.bzl", _py_image_repos = "repositories")
 _py_image_repos()
 
+
 ### 
-### END DOCKER
+### Kubernetes
 ### 
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# This requires rules_docker to be fully instantiated before
+# it is pulled in.
+# Download the rules_k8s repository at release v0.3.1
+http_archive(
+    name = "io_bazel_rules_k8s",
+    #sha256 = "cc75cf0d86312e1327d226e980efd3599704e01099b58b3c2fc4efe5e321fcd9",
+    strip_prefix = "rules_k8s-0.4",
+    urls = ["https://github.com/bazelbuild/rules_k8s/releases/download/v0.4/rules_k8s-v0.4.tar.gz"],
+)
+
+load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories", "k8s_defaults")
+load("@io_bazel_rules_k8s//k8s:k8s_go_deps.bzl", k8s_go_deps = "deps")
+
+k8s_repositories()
+k8s_go_deps()
+
+##
+## Kubernetes Defaults
+## 
+
+_CLUSTER = "kind-kind"
+_CONTEXT = "kind-kind"
+_NAMESPACE = "default"
+
+k8s_defaults(
+    name = "k8s_object",
+    cluster = _CLUSTER,
+    context = _CONTEXT,
+    image_chroot = "index.docker.io",
+    namespace = _NAMESPACE,
+)
+
+
+# k8s_defaults(
+#     name = "k8s_deploy",
+#     cluster = _CLUSTER,
+#     context = _CONTEXT,
+#     image_chroot = "localhost:5000/pet",  #"us.gcr.io/rules_k8s/{BUILD_USER}",
+#     kind = "deployment",
+#     namespace = _NAMESPACE,
+# )
+
+[k8s_defaults(
+    name = "k8s_" + kind,
+    cluster = _CLUSTER,
+    context = _CONTEXT,
+    kind = kind,
+    namespace = _NAMESPACE,
+    image_chroot = "index.docker.io",
+) for kind in [
+    "service",
+    "crd",
+    "todo",
+]]

@@ -11,7 +11,7 @@ bazel query 'kind(rule,deps(...))' $IMPLICIT --output graph > /tmp/graph_rules.i
 dot -Tpng < /tmp/graph_rules.in > dependency_rules.png
 #'filter("symlinks",deps(...))'
 > /tmp/graph_all.in
-bazel query 'filter("^(?!.*(symlinks|symlinks|nvs|mvc)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
+bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|.reversed|.delete|.replace)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
 dot -Tpng < /tmp/graph_all.in > dependency.png
 
 echo ""
