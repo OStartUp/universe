@@ -3,6 +3,7 @@
 
 git diff --name-only $1 $2 > /tmp/changed_files
 
+
 > /tmp/impacted_rules
 while read p; do
   echo "Fetching $p"
