@@ -37,7 +37,7 @@ k8s_object(
 )
 
 k8s_objects(
-   name = "service",
+   name = "pet",
    objects = [
       ":pet-deploy",
       ":pet-service",
@@ -52,3 +52,5 @@ k8s_objects(
 
 
 # bazel build //pet_service/kubenetes:service
+
+# bazel run //pet_service/kubenetes:pet.apply
