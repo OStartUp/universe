@@ -16,3 +16,14 @@ kubectl logs -l app=echo-deploy
 ./get_impacted   -> Get all target impacted by current changes
 ./get_kind_impacted   -> Get all target impacted by current changes, filtered by kind (i.e: ./get_kind_impacted binary)
 ```
+
+Usefull queries:
+```
+bazel query "kind(binary, rdeps(//..., {file}))" 
+bazel query "rdeps(//..., {file})" 
+```
+
+Examples:
+```
+bazel query "kind(rule,rdeps(//..., //configlib:utils.py))"  --output label_kind
+```
