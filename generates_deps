@@ -3,12 +3,16 @@ IMPLICIT="--noimplicit_deps"
 case $1 in
         -f) export IMPLICIT=""            
         ;;
-        *)  export IMPLICIT = "--noimplicit_deps"
+        *)  export IMPLICIT="--noimplicit_deps --notool_deps"
 esac
 
-> /tmp/graph.in
-bazel query 'deps(...)' $IMPLICIT --output graph > /tmp/graph.in && \
-dot -Tpng < /tmp/graph.in > dependency.png
+> /tmp/graph_rules.in
+bazel query 'kind(rule,deps(...))' $IMPLICIT --output graph > /tmp/graph_rules.in && \
+dot -Tpng < /tmp/graph_rules.in > dependency_rules.png
+#'filter("symlinks",deps(...))'
+> /tmp/graph_all.in
+bazel query 'filter("^(?!.*(symlinks|symlinks|nvs|mvc)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
+dot -Tpng < /tmp/graph_all.in > dependency.png
 
 echo ""
 echo "==== Universe Packages ===="
