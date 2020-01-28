@@ -37,3 +37,4 @@ Examples:
 ```
 bazel query "kind(rule,rdeps(//..., //configlib:utils.py))"  --output label_kind
 ```
+
