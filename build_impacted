@@ -7,10 +7,10 @@ if [ -s "/tmp/impacted_rules" ]
 then
 	echo ""
     echo ""
-    echo "Testing changes"
+    echo "Building"
     cat  /tmp/impacted_rules  | xargs bazel build 
 else
 	echo ""
     echo ""
-    echo "No tests impacted... (ignoring)"
+    echo "No binary impacted... (ignoring)"
 fi
