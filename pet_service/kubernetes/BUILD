@@ -37,7 +37,7 @@ k8s_object(
 )
 
 k8s_objects(
-   name = "pet",
+   name = "pet-application",
    objects = [
       ":pet-deploy",
       ":pet-service",

@@ -130,3 +130,21 @@ k8s_defaults(
     "crd",
     "todo",
 ]]
+
+###
+### Helm
+###
+
+# git_repository(
+#     name = "com_github_tmc_rules_helm",
+#     tag = "0.4.0",
+#     remote = "https://github.com/marcecaro/rules_helm.git",
+# )
+
+local_repository(
+    name = "com_github_tmc_rules_helm",
+    path = "/home/appsadm/workbench/OpenStartUp/rules_helm",
+)
+
+load("@com_github_tmc_rules_helm//:repos.bzl", "helm_repositories")
+helm_repositories()

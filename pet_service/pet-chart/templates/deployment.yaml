@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: pet
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echo-deploy
+    spec:
+      containers:
+        - name: echo-server
+          image: marcecaro/echo:{{ .Values.commit }}
+          imagePullPolicy: Always
+          # ports:
+          # - containerPort: 5000
+ 

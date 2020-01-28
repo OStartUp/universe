@@ -7,6 +7,7 @@ docker login  <-  marcecaro
 
 ```
 curl -v localhost:8001/api/v1/namespaces/default/services/echo/proxy/
+curl -v localhost:8001/api/v1/namespaces/pet/services/echo/proxy/
 kubectl logs -l app=echo-deploy
 ./deploy_impacted 
 ./test_impacted 
