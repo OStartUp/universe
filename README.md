@@ -1,6 +1,9 @@
 # universe
 Load all Service to crete a Bazel universe
 
+```
+docker login  <-  marcecaro
+```
 
 ```
 curl -v localhost:8001/api/v1/namespaces/default/services/echo/proxy/
