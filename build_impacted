@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+./get_kind_impacted binary
+
+
+if [ -s "/tmp/impacted_rules" ] 
+then
+	echo ""
+    echo ""
+    echo "Testing changes"
+    cat  /tmp/impacted_rules  | xargs bazel build 
+else
+	echo ""
+    echo ""
+    echo "No tests impacted... (ignoring)"
+fi

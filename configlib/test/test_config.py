@@ -12,7 +12,7 @@ class TestConfig(unittest.TestCase):
     def test_getconfig(self):
         """Test one"""
         conf = config.getConfig()
-        self.assertTrue(conf["version"] == "1.0.22")
+        self.assertTrue(conf["version"] == "1.0.1")
 
 
 if __name__ == "__main__":

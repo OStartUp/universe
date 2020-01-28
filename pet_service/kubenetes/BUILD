@@ -22,7 +22,7 @@ k8s_object(
   # when this target is bazel run.  The digest of the published
   # image is substituted as a part of the resolution process.
   images = {
-    "marcecaro/echo:latest": "//pet_service/src:echo_image",
+    "marcecaro/echo:latest": "//pet_service/src:echo-image",
   },
 
 #   substitutions = {

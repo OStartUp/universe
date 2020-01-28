@@ -1,5 +1,17 @@
 #!/bin/bash
 set -e
+echo "### SANITY ###"
+bazel query "deps(//...)" > /dev/null
+
+echo ""
+echo ""
+echo ""
+echo "### BUILDING ###"
+./build_impacted
+
+echo ""
+echo ""
+echo ""
 echo "### TESTING ###"
 ./test_impacted
 
