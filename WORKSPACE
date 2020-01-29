@@ -134,16 +134,10 @@ k8s_defaults(
 ###
 ### Helm
 ###
-
-# git_repository(
-#     name = "com_github_tmc_rules_helm",
-#     tag = "0.4.0",
-#     remote = "https://github.com/marcecaro/rules_helm.git",
-# )
-
-local_repository(
+git_repository(
     name = "com_github_tmc_rules_helm",
-    path = "/home/appsadm/workbench/OpenStartUp/rules_helm",
+    tag = "0.4.0",
+    remote = "https://github.com/tmc/rules_helm.git",
 )
 
 load("@com_github_tmc_rules_helm//:repos.bzl", "helm_repositories")
@@ -157,3 +151,6 @@ http_archive(
 )
 load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 rules_pkg_dependencies()
+
+
+

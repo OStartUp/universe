@@ -14,12 +14,12 @@ dot -Tpng < /tmp/graph_rules.in > dependency_rules.png
 
 echo "Generating Dependency"
 > /tmp/graph_all.in
-bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|.reversed|.delete|.replace|.describe)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
+bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|\.reversed|\.delete|\.replace|\.describe|\.template|\.binary|\.[0-9]+)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all.in && \
 dot -Tpng < /tmp/graph_all.in > dependency.png
 
 echo "Generating Dependency (without extenal)"
 > /tmp/graph_all_internal.in
-bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|.reversed|.delete|.replace|.describe|@)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all_internal.in && \
+bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|\.reversed|\.delete|\.replace|\.describe|\.template|\.binary|@|\.[0-9]+)).*$",deps(...))' $IMPLICIT --output graph > /tmp/graph_all_internal.in && \
 dot -Tpng < /tmp/graph_all_internal.in > dependency_internals.png
 
 echo ""

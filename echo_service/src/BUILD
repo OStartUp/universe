@@ -5,7 +5,7 @@ load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
 load("@my_deps//:requirements.bzl", "requirement")
 
 py3_image(
-    name = "pet-image",
+    name = "echo-image",
     srcs = ["echo.py"],
     main = "echo.py",
     layers = [ ## Is like , but layered
@@ -23,7 +23,7 @@ py3_image(
 
 container_test(
     name = "StructureTests",
-    image = ":pet-image",
+    image = ":echo-image",
     configs = [":tests/structure.yaml"]
 )
 
