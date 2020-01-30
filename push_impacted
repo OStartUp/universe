@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+rm -f /tmp/impacted_rules 
+MUTE=yes ./get_kind_impacted rule  $1 $2
+
+if [ -s "/tmp/impacted_rules" ] 
+then
+	echo ""
+    echo ""
+    echo "Building"
+    cat  /tmp/impacted_rules | grep "_PUSHER" | xargs -L 1 bazel run   
+else
+	echo ""
+    echo ""
+    echo "No binary impacted... (ignoring)"
+fi
