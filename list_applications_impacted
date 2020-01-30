@@ -1,0 +1,4 @@
+#!/bin/bash
+
+MUTE=yes ./get_kind_impacted application_manifest
+cat /tmp/impacted_rules

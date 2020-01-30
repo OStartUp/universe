@@ -1,2 +1,2 @@
-build --workspace_status_command="bash getbuildinfo"
-run --workspace_status_command="bash getbuildinfo"
+build --workspace_status_command="bash getbuildinfo" --logging=0
+run --workspace_status_command="bash getbuildinfo" --logging=0

@@ -30,11 +30,11 @@ def artifact_manifest_impl(ctx):
         template =  ctx.file.template ,
         output = ctx.outputs.manifest,
         substitutions = {
-            "$ARTIFACT": ctx.file.zip_file.short_path
+            "$ARTIFACT": ctx.file.zip_file.path
         },
   )
 
-_artifact_manifest = rule(
+application_manifest = rule(
     implementation = artifact_manifest_impl,
     attrs = {
         "zip_file": attr.label(allow_single_file = True),
@@ -48,14 +48,14 @@ _artifact_manifest = rule(
 
 
 def artifact_manifest(name, zip_file):
-    _artifact_manifest(
+    application_manifest(
         name = name,
         zip_file = zip_file,
         template = "//buildtools:artifact.manifest.template"
         )
 
 
-def publish_service(srcs):
+def gen_zip(srcs):
     artifact_manifest(name = "APPLICATION", zip_file = ":ARTIFACT")
     pkg_zip(
         name = "ARTIFACT",
@@ -83,9 +83,15 @@ def push(name, image, repository, registry):
         tag = "{STABLE_GIT_COMMIT}",
     )
 
-def application(helm_srcs, images, config_srcs, repository, registry, update_deps):
-    
+
+def application(name, helm_srcs, images, config_srcs, repository, registry, update_deps):
     pushers = [name.split(":")[-1]+"_PUSHER" for i, name in enumerate(images)]
+
+    helm_chart(
+        name = name, 
+        srcs = helm_srcs + pushers,
+        update_deps = update_deps,
+    )
 
     for image, pusher in zip(images, pushers):
         push(
@@ -95,15 +101,9 @@ def application(helm_srcs, images, config_srcs, repository, registry, update_dep
             registry = registry,
             )
 
-    helm_chart(
-        name = "CHART",
-        srcs = helm_srcs + pushers,
-        update_deps = update_deps,
-    )
-
-    publish_service(
+    gen_zip(
         srcs = [
-            ":CHART",
+            ":"+name,
             config_srcs, 
         ],
     )

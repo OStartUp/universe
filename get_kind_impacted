@@ -3,14 +3,22 @@
 
 git diff --name-only $2 $3 > /tmp/changed_files
 
-> /tmp/impacted_rules_tmp
+rm /tmp/impacted_rules_tmp
+rm /tmp/impacted_rules 
+
 while read p; do
-  echo "Fetching $p"
+  if [ "$MUTE" != "yes" ]
+  then
+    echo "Fetching $p"
+  fi
   bazel query "kind($1, rdeps(//..., $p))" 2> /dev/null >> /tmp/impacted_rules_tmp
 done < /tmp/changed_files
 
 (cat /tmp/impacted_rules_tmp | sort | uniq) > /tmp/impacted_rules 
-cat /tmp/impacted_rules 
+if [ "$MUTE" != "yes" ]
+then
+  cat /tmp/impacted_rules 
+fi
 
 # echo " " >>  loggerlib/pretify.py 
 # ./get_kind_impacted binary  756dbdc073430ee53d9ed1b227ac6155c6f4bfea

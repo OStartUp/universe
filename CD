@@ -18,5 +18,10 @@ echo "### TESTING ###"
 echo ""
 echo ""
 echo "" 
-echo "### DEPLOYING ###"
-./deploy_impacted
+echo "### Packaging Impacted Applications ###"
+find -L ./bazel-bin -name "APPLICATION.manifest" -delete
+./list_applications_impacted | xargs bazel build 
+find -L ./bazel-bin -name "APPLICATION.manifest"| xargs cat ; echo "--"
+
+
+

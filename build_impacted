@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
-./get_kind_impacted binary
-
+rm -f /tmp/impacted_rules 
+MUTE=yes ./get_kind_impacted rule 
 
 if [ -s "/tmp/impacted_rules" ] 
 then
 	echo ""
     echo ""
     echo "Building"
-    cat  /tmp/impacted_rules  | xargs bazel build 
+    cat  /tmp/impacted_rules  | xargs bazel build  --sandbox_debug 
 else
 	echo ""
     echo ""

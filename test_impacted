@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./get_kind_impacted test
+MUTE=yes ./get_kind_impacted test
 
 
 if [ -s "/tmp/impacted_rules" ] 
