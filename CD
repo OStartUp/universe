@@ -3,10 +3,10 @@ set -e
 echo "### SANITY ###"
 bazel query "deps(//...)" > /dev/null
 
-echo ""
-echo ""
-echo ""
-echo "### BUILDING ###"
+# echo ""
+# echo ""
+# echo ""
+# echo "### BUILDING ###"
 # ./build_impacted
 
 echo ""
@@ -23,13 +23,23 @@ echo "### Push Impacted ###"
 
 echo ""
 echo ""
+echo ""
+echo "### Creating Artifacts ###"
+./artifact_impacted
+
+echo ""
+echo ""
 echo "" 
 echo "### Packaging Impacted Applications ###"
 find -L ./bazel-bin -name "APPLICATION.manifest" -delete
 ./list_applications_impacted | xargs -L 1 bazel build  --logging 0
+
+
 echo ""
-find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
-cat .changed_applications
+echo ""
+echo ""
+echo "### Push Impacted ###"
+./deploy_impacted
 
 
 

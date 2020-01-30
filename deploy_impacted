@@ -1,15 +1,32 @@
 #!/bin/bash
-./get_kind_impacted _run_all 
+set -e
+find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
+cat .changed_applications
 
-if [ -s "/tmp/impacted_rules" ] 
-then
-	echo ""
-    echo ""
-    echo "Applying changes"
-    cat  /tmp/impacted_rules | grep .apply  | xargs bazel run 
-else
-	echo ""
-    echo ""
-    echo "No target impacted... (ignoring)"
-fi
+# ./get_kind_impacted _run_all 
+PWD=$(pwd)
+rm -rf /tmp/current_deploy
+mkdir -p /tmp/current_deploy
+echo ""
+echo ""
 
+while read artifact; do
+  echo "Deploying: $artifact"
+  rm -rf /tmp/current_deploy
+  mkdir -p /tmp/current_deploy
+  ZIP_ARTIFACT=$(cat $artifact | cut -d " " -f 2)
+  unzip $ZIP_ARTIFACT -d /tmp/current_deploy
+  
+  cd /tmp/current_deploy
+  chart=(*CHART_chart.tar.gz)
+  namespace=$(echo $chart | sed 's/_CHART_chart.tar.gz$//')
+  echo "Deployin $chart in $namespace"
+  
+  kubectl create namespace $namespace 2>/dev/null || true
+  mkdir templates
+  helm template $namespace $chart  -f base.yaml -f local.yaml > manifest.yaml
+  kubectl apply -n  $namespace -f manifest.yaml
+  cd -
+  echo ""
+  echo ""
+done <.changed_applications
