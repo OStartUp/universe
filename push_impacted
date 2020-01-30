@@ -1,15 +1,18 @@
 #!/bin/bash
-set -e
 > /tmp/impacted_rules 
-MUTE=yes ./get_kind_impacted rule  $1 $2
+MUTE=yes ./get_kind_impacted rule  $1 $2 
+cat  /tmp/impacted_rules | grep "_PUSHER" > /tmp/pushers
 
-(cat  /tmp/impacted_rules | grep "_PUSHER" > /tmp/pushers) || true
-
-
-while read pusher; do
-  echo "Pushing: $pusher"
-  rbazel run  $pusher
-done < /tmp/pushers
-echo "--"
+set -e
+if [ -s "/tmp/pushers" ] 
+then
+    while read pusher; do
+    echo "Pushing: $pusher"
+    rbazel run  $pusher
+    done < /tmp/pushers
+    echo "--"
+else
+    echo "No pushers to run"
+fi
 
 

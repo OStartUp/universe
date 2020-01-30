@@ -2,7 +2,7 @@
 
 if ! git diff --quiet ; then
   echo 'The current repository is dirty'
-  exit 1
+  #exit 1
 fi
 
 
@@ -58,7 +58,7 @@ find -L ./bazel-bin -name "APPLICATION.manifest" -delete
 echo ""
 echo ""
 echo ""
-echo "### Push Impacted ###"
+echo "### Deploying Impacted ###"
 ./deploy_impacted  $HEADP $HEAD
 
 

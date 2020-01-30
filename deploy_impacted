@@ -1,8 +1,8 @@
 #!/bin/bash
-set -e
+
 find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
 cat .changed_applications
-
+set -e
 # ./get_kind_impacted _run_all 
 PWD=$(pwd)
 rm -rf /tmp/current_deploy
