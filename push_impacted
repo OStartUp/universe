@@ -5,11 +5,11 @@ MUTE=yes ./get_kind_impacted rule  $1 $2
 
 (cat  /tmp/impacted_rules | grep "_PUSHER" > /tmp/pushers) || true
 
-echo ""
+
 while read pusher; do
   echo "Pushing: $pusher"
   rbazel run  $pusher
 done < /tmp/pushers
-
+echo "--"
 
 
