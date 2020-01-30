@@ -28,6 +28,7 @@ bazel query "deps(//...)" > /dev/null
 # echo "### BUILDING ###"
 # ./build_impacted
 
+
 echo ""
 echo ""
 echo ""
