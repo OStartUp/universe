@@ -1,7 +1,15 @@
 #!/bin/bash
+
+if ! git diff --quiet ; then
+  echo 'The current repository is dirty'
+  exit 1
+fi
+
+
 HEADP=${1:-HEAD^}
 HEAD=${2:-HEAD} 
 
+exit
 set -e
 echo ""
 echo ""
