@@ -10,6 +10,7 @@ while read pusher; do
   echo "Pushing: $pusher"
   rbazel run  $pusher
 done < /tmp/pushers
+echo "---"
 exit 0
 
 
