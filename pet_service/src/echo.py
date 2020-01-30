@@ -87,6 +87,7 @@ def echo(path):
     response.status_code = status_code
     return response
 
+
 def main():
     logg("STARTING - WITH LOGG!!!!") 
     parser = OptionParser()

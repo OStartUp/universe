@@ -56,9 +56,9 @@ def artifact_manifest(name, zip_file):
 
 
 def gen_zip(srcs):
-    artifact_manifest(name = "APPLICATION", zip_file = ":ARTIFACT")
+    artifact_manifest(name = "APPLICATION", zip_file = ":ZIP_ARTIFACT")
     pkg_zip(
-        name = "ARTIFACT",
+        name = "ZIP_ARTIFACT",
         srcs = srcs + [":BUILDINFO"],
     )
     native.genrule(
@@ -68,7 +68,13 @@ def gen_zip(srcs):
         cmd = "cat bazel-out/volatile-status.txt > $@ ; cat bazel-out/stable-status.txt >> $@ ",
         stamp = 1,
     )
-
+    native.genrule(
+        name = "BASE_CONFIG",
+        srcs = [],
+        outs = ["base.yaml"],
+        cmd = """echo "commit: $$(cat bazel-out/stable-status.txt |grep STABLE_GIT_COMMIT|cut -d " " -f 2)"  > $@""",
+        stamp = 1,
+    )
 
 ####
 ####
@@ -86,9 +92,9 @@ def push(name, image, repository, registry):
 
 def application(name, helm_srcs, images, config_srcs, repository, registry, update_deps):
     pushers = [name.split(":")[-1]+"_PUSHER" for i, name in enumerate(images)]
-
+    chart_name = name + "_CHART" 
     helm_chart(
-        name = name, 
+        name = chart_name, 
         srcs = helm_srcs + pushers,
         update_deps = update_deps,
     )
@@ -100,10 +106,14 @@ def application(name, helm_srcs, images, config_srcs, repository, registry, upda
             repository = repository,
             registry = registry,
             )
-
+    native.filegroup(
+        name = "ENVIRONMENT_CONFIG",
+        srcs = native.glob(config_srcs),
+    )
     gen_zip(
         srcs = [
-            ":"+name,
-            config_srcs, 
+            ":"+chart_name,
+            ":ENVIRONMENT_CONFIG", 
+            ":BASE_CONFIG",
         ],
     )

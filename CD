@@ -17,6 +17,12 @@ echo "### TESTING ###"
 
 echo ""
 echo ""
+echo ""
+echo "### Push Impacted ###"
+./push_impacted
+
+echo ""
+echo ""
 echo "" 
 echo "### Packaging Impacted Applications ###"
 find -L ./bazel-bin -name "APPLICATION.manifest" -delete
