@@ -7,7 +7,7 @@ echo ""
 echo ""
 echo ""
 echo "### BUILDING ###"
-./build_impacted
+# ./build_impacted
 
 echo ""
 echo ""
@@ -26,8 +26,11 @@ echo ""
 echo "" 
 echo "### Packaging Impacted Applications ###"
 find -L ./bazel-bin -name "APPLICATION.manifest" -delete
-./list_applications_impacted | xargs bazel build 
-find -L ./bazel-bin -name "APPLICATION.manifest"| xargs cat ; echo "--"
+./list_applications_impacted | xargs -L 1 bazel build  --logging 0
+echo ""
+find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
+cat .changed_applications
+
 
 
 

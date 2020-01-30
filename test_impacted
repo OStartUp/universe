@@ -8,7 +8,7 @@ then
 	echo ""
     echo ""
     echo "Testing changes"
-    cat  /tmp/impacted_rules  | xargs bazel test 
+    cat  /tmp/impacted_rules  | xargs -L 1 bazel test 
 else
 	echo ""
     echo ""
