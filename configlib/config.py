@@ -6,7 +6,7 @@ def main():
 
 def getConfig():
     version = someUtility("")
-    return {"version": version}
+    return {"versionn": version}
 
 if __name__ == "__main__":
     main()
