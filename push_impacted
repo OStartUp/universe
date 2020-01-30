@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-rm -f /tmp/impacted_rules 
+> /tmp/impacted_rules 
 MUTE=yes ./get_kind_impacted rule  $1 $2
 
 cat  /tmp/impacted_rules | grep "_PUSHER" > /tmp/pushers
