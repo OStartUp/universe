@@ -1,4 +1,4 @@
 #!/bin/bash
 
-MUTE=yes ./get_kind_impacted application_manifest
+MUTE=yes ./get_kind_impacted application_manifest $1 $2
 cat /tmp/impacted_rules

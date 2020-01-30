@@ -1,5 +1,14 @@
 #!/bin/bash
 set -e
+echo ""
+echo ""
+echo ""
+echo "### Changed Files ###"
+git diff --name-only $1 $2
+
+echo ""
+echo ""
+echo ""
 echo "### SANITY ###"
 bazel query "deps(//...)" > /dev/null
 
@@ -13,33 +22,33 @@ echo ""
 echo ""
 echo ""
 echo "### TESTING ###"
-./test_impacted
+./test_impacted $1 $2
 
 echo ""
 echo ""
 echo ""
 echo "### Push Impacted ###"
-./push_impacted
+./push_impacted $1 $2
 
 echo ""
 echo ""
 echo ""
 echo "### Creating Artifacts ###"
-./artifact_impacted
+./artifact_impacted $1 $2
 
 echo ""
 echo ""
 echo "" 
 echo "### Packaging Impacted Applications ###"
 find -L ./bazel-bin -name "APPLICATION.manifest" -delete
-./list_applications_impacted | xargs -L 1 bazel build  --logging 0
+./list_applications_impacted  $1 $2| xargs -L 1 bazel build  --logging 0
 
 
 echo ""
 echo ""
 echo ""
 echo "### Push Impacted ###"
-./deploy_impacted
+./deploy_impacted  $1 $2
 
 
 
