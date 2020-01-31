@@ -24,7 +24,7 @@ while read artifact; do
   
   kubectl create namespace $namespace 2>/dev/null || true
   mkdir templates
-  helm template $namespace $chart  -f base.yaml -f local.yaml > manifest.yaml
+  helm template $namespace $chart  -f sha256.yaml -f local.yaml > manifest.yaml
   kubectl apply -n  $namespace -f manifest.yaml
   cd -
   echo ""
