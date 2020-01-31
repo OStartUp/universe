@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: pet-server
-          image: marcecaro/pet:@{{ (index .Values.sha256 "marcecaro/pet") }}
+          image: marcecaro/pet@{{ (index .Values.sha256 "marcecaro/pet") }}
           imagePullPolicy: Always
           # ports:
           # - containerPort: 5000

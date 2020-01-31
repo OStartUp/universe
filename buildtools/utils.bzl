@@ -106,7 +106,7 @@ def application(name, helm_srcs, images, config_srcs, registry, update_deps):
             name = sha_name,
             srcs = [pusher],
             tools = [pusher],
-            outs = ["sha265.yaml"],
+            outs = ["sha256.yaml"],
             cmd = """
 echo "sha256:" >> $@
 for s in $(SRCS); do
