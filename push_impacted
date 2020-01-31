@@ -8,7 +8,7 @@ if [ -s "/tmp/pushers" ]
 then
     while read pusher; do
     echo "Pushing: $pusher"
-    rbazel run  $pusher
+    bazel run  $pusher
     done < /tmp/pushers
     echo "--"
 else
