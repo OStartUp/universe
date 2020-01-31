@@ -59,22 +59,15 @@ def gen_zip(srcs):
     artifact_manifest(name = "APPLICATION", zip_file = ":ZIP_ARTIFACT")
     pkg_zip(
         name = "ZIP_ARTIFACT",
-        srcs = srcs + [":BUILDINFO"],
+        srcs = srcs #+ [":BUILDINFO"],
     )
-    native.genrule(
-        name = "BUILDINFO",
-        srcs = [],
-        outs = ["build.txt"],
-        cmd = "cat bazel-out/volatile-status.txt > $@ ; cat bazel-out/stable-status.txt >> $@ ",
-        stamp = 1,
-    )
-    native.genrule(
-        name = "BASE_CONFIG",
-        srcs = [],
-        outs = ["base.yaml"],
-        cmd = """echo "commit: $$(cat bazel-out/stable-status.txt |grep STABLE_GIT_COMMIT|cut -d " " -f 2)"  > $@""",
-        stamp = 1,
-    )
+    # native.genrule(
+    #     name = "BUILDINFO",
+    #     srcs = [],
+    #     outs = ["build.txt"],
+    #     cmd = "cat bazel-out/volatile-status.txt > $@ ; cat bazel-out/stable-status.txt >> $@ ",
+    #     stamp = 1,
+    # )
 
 ####
 ####
@@ -90,30 +83,52 @@ def push(name, image, repository, registry):
     )
 
 
-def application(name, helm_srcs, images, config_srcs, repository, registry, update_deps):
-    pushers = [name.split(":")[-1]+"_PUSHER" for i, name in enumerate(images)]
+def application(name, helm_srcs, images, config_srcs, registry, update_deps):
+    all_info = [(name, name.split(":")[-1]+"_PUSHER", images[name] ) for name in images.keys()]
     chart_name = name + "_CHART" 
     helm_chart(
         name = chart_name, 
-        srcs = helm_srcs + pushers,
+        srcs = helm_srcs, # + [pusher for (_, pusher, _) in all_info],
         update_deps = update_deps,
     )
 
-    for image, pusher in zip(images, pushers):
+    sha256_list =[]
+    for n, (image, pusher, repository) in enumerate(all_info):
         push(
             name = pusher,
             image = image, 
             repository = repository,
             registry = registry,
             )
+        sha_name = "SHA256_" + str(n)
+        sha256_list.append(sha_name)
+        native.genrule(
+            name = sha_name,
+            srcs = [pusher],
+            tools = [pusher],
+            outs = ["sha265.yaml"],
+            cmd = """
+echo "sha256:" >> $@
+for s in $(SRCS); do
+    if [[ $$s = *digest* ]]
+    then
+        echo "    {repository}": $$(cat $$s) >> $@
+    fi
+done
+""".format(repository=repository)        
+)
     native.filegroup(
         name = "ENVIRONMENT_CONFIG",
         srcs = native.glob(config_srcs),
+    )
+    native.filegroup(
+        name = "SHA256",
+        srcs = sha256_list,
     )
     gen_zip(
         srcs = [
             ":"+chart_name,
             ":ENVIRONMENT_CONFIG", 
-            ":BASE_CONFIG",
+            ":SHA256",
         ],
     )

@@ -9,9 +9,8 @@ DOCKER_REGISTRY_URL="index.docker.io"
 application(
     name = "echo",
     helm_srcs = glob(["echo-chart/**"]), 
-    images = [ "//echo_service/src:echo-image"], 
+    images = { "//echo_service/src:echo-image" : "marcecaro/echo"}, 
     config_srcs = glob(["environments/**"]),
     update_deps = True,
-    repository = "marcecaro/echo",
     registry = DOCKER_REGISTRY_URL
     )
