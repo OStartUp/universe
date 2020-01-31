@@ -2,7 +2,7 @@
 from configlib.utils import someUtility
 
 def main():
-    print("Hello World!!")
+    print("Hello World!")
 
 def getConfig():
     version = someUtility("")
