@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: echo-server
-          image: marcecaro/echo@{{ (index .Values.sha256 "marcecaro/pet") }}
+          image: marcecaro/echo@{{ (index .Values.sha256 "marcecaro/echo") }}
           imagePullPolicy: Always
           # ports:
           # - containerPort: 5000

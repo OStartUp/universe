@@ -26,7 +26,9 @@ while read artifact; do
   mkdir templates
   helm template $namespace $chart  -f sha256.yaml -f local.yaml > manifest.yaml
   kubectl apply -n  $namespace -f manifest.yaml
-  cd -
+  echo "Images:"
+  cat sha256.yaml
+  cd $PWD
   echo ""
   echo ""
 done <.changed_applications
