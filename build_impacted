@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-rm -f /tmp/impacted_rules 
 MUTE=yes ./get_kind_impacted rule  $1 $2
 
 if [ -s "/tmp/impacted_rules" ] 

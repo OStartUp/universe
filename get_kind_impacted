@@ -1,10 +1,9 @@
 #!/bin/bash
 > /tmp/changed_files
-
 git diff --name-only $2 $3 > /tmp/changed_files
 
-rm /tmp/impacted_rules_tmp
-rm /tmp/impacted_rules 
+rm -f /tmp/impacted_rules_tmp   2> /dev/null
+rm -f /tmp/impacted_rules  2> /dev/null
 
 while read p; do
   if [ "$MUTE" != "yes" ]
