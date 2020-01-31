@@ -8,7 +8,7 @@ esac
 
 echo "Generating Dependency Rules"
 > /tmp/graph_rules.in
-bazel query 'kind(rule,deps(...))' $IMPLICIT --output graph > /tmp/graph_rules.in && \
+bazel query 'filter("^(?!.*(symlinks|\.apply|\.create|\.reversed|\.delete|\.replace|\.describe|\.template|\.binary|\.[0-9]+)).*$",kind(rule,deps(...)))' $IMPLICIT --output graph > /tmp/graph_rules.in && \
 dot -Tpng < /tmp/graph_rules.in > dependency_rules.png
 #'filter("symlinks",deps(...))'
 

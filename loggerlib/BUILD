@@ -25,7 +25,6 @@ py_binary(
     name = "dummy",
     srcs = [":srcs_dummy"],
     srcs_version = "PY3",
-    #imports= ["config"],
     deps = [":logger"], 
 )
 
