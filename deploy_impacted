@@ -28,7 +28,7 @@ while read artifact; do
   kubectl apply -n  $namespace -f manifest.yaml
   echo "Images:"
   cat sha256.yaml
-  cd $PWD
+  cd - 2> /dev/null
   echo ""
   echo ""
 done <.changed_applications
