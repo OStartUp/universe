@@ -13,6 +13,8 @@ pipeline {
                     echo ""
                     echo ""
                     echo ""
+                    which git
+                    git --version
                     echo "### Changed Files ###"
                     production_pointer is in:
                     git rev-list -n 1 production_pointer
