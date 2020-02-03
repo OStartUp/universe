@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh  """
-                    export PATH=${PATH}:$(pwd)
+                    export PATH=\${PATH}:\$(pwd)
                     echo ""
                     echo ""
                     echo ""
