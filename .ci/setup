@@ -1,5 +1,6 @@
 echo 'Installing Bazel'
 echo "$PATH"
+pwd
 (cd "/home/jenkins/agent/workspace/CI_master/.ci" && curl -LO https://releases.bazel.build/2.0.0/release/bazel-2.0.0-linux-x86_64 && chmod +x bazel-2.0.0-linux-x86_64)
 USE_BAZEL_VERSION=2.0.0 .ci/bazel version
 cp .ci/bazel /usr/local/bin
