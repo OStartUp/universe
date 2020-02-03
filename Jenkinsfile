@@ -4,6 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
+                echo '$PATH'
+                sudo apt-get install bazel
+                bazel version
             }
         }
         stage('Test') {
