@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('Setup Environment') {
             steps {
-                script {
-                    sh .ci/setup
-                }
+                sh '.ci/setup'
             }
         }
         stage('Test') {
