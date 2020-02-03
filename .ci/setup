@@ -1,4 +1,4 @@
 echo 'Building'
 echo "$PATH"
-apt-get install bazel
+.ci/bazel_bootstrap version
 bazel version
