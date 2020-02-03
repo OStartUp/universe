@@ -59,7 +59,6 @@ spec:
       }
     }
     
-    agent any
     stages {
         stage('Setup Environment') {
             steps {
@@ -129,5 +128,5 @@ spec:
     //     changed {
     //         echo 'Things were different before...'
     //     }   
-    }
+    //}
 }
