@@ -4,15 +4,17 @@ echo 'Installing Bazel'
 (cd "/home/jenkins/agent/workspace/CI_master/.ci" && curl -LO https://releases.bazel.build/2.0.0/release/bazel-2.0.0-linux-x86_64 && chmod +x bazel-2.0.0-linux-x86_64)
 USE_BAZEL_VERSION=2.0.0 .ci/bazel version
 cp .ci/bazel ..
-cp bazel-2.0.0-linux-x86_64 ..
+cp .ci/bazel-2.0.0-linux-x86_64 ..
 ./bazel version
 
 
-echo 'Installing Helm3'
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+echo 'Installing Helm 3'
+curl -fsSL -o get_helm.sh https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
+tar xvzf helm-v3.0.3-linux-amd64.tar.gz
+cp linux-amd64/helm ./helm
+chmod +x ./helm
+./helm version
+ 
 
-ls -l 
 
 
