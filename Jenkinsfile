@@ -57,6 +57,7 @@ spec:
     name: "workspace-volume"
 """
       }
+    }
     
     stages {
         stage('Setup Environment') {
@@ -104,28 +105,28 @@ spec:
             }
           }
         }
-    }
-         post {
-        //     always {
-        //         archiveArtifacts artifacts: '*.png', fingerprint: true
-        //        // junit 'build/reports/**/*.xml'
-        //    }
-            always {
-                echo 'One way or another, I have finished'
-                deleteDir() /* clean up our workspace */
-            }
-            success {
-                archiveArtifacts artifacts: '*.png', fingerprint: true
-                echo 'I succeeeded!'
-            }
-            unstable {
-                echo 'I am unstable :/'
-            }
-            failure {
-                echo 'I failed :('
-            }
-            changed {
-                echo 'Things were different before...'
-            }
+
+        post {
+    //     always {
+    //         archiveArtifacts artifacts: '*.png', fingerprint: true
+    //        // junit 'build/reports/**/*.xml'
+    //    }
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            archiveArtifacts artifacts: '*.png', fingerprint: true
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }   
     }
 }
