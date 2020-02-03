@@ -56,7 +56,8 @@ spec:
       medium: ""
     name: "workspace-volume"
 """
-   }
+      }
+    }
     stages {
         stage('Setup Environment') {
             steps {
