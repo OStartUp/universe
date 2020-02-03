@@ -39,6 +39,8 @@ bazel query "kind(rule,rdeps(//..., //configlib:utils.py))"  --output label_kind
 ```
 
 
-
+Tagging
+```
 git tag -f production_pointer -m "Production is running this version"
 git push origin production_pointer
+```
