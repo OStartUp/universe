@@ -1,17 +1,62 @@
 pipeline {
-    agent any
-    // node {
-    //     checkout([$class: 'GitSCM',
-    //             branches: [[name: '*/master']],
-    //             doGenerateSubmoduleConfigurations: false,
-    //             extensions: [[$class: 'CloneOption',
-    //                     depth: 0,
-    //                     noTags: false,
-    //                     reference: '', shallow: false]],
-    //             submoduleCfg: [],
-    //             userRemoteConfigs: [[]]]
-    //         )
-    // }
+    agent {
+    kubernetes {
+        label podlabel
+        yaml """
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations: {}
+  labels:
+    jenkins/cdplatform-jenkins-slave: "true"
+  name: "default-zk75t"
+spec:
+  containers:
+  - args:
+    - "********"
+    - "default-zk75t"
+    env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-agent:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "default-zk75t"
+    - name: "JENKINS_NAME"
+      value: "default-zk75t"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins.kube-system.svc.cluster.local:8080/jenkins"
+    image: "kkarty/jnlp-slave-python3.7"
+    imagePullPolicy: "IfNotPresent"
+    name: "jnlp"
+    resources:
+      limits:
+        memory: "512Mi"
+        cpu: "512m"
+      requests:
+        memory: "512Mi"
+        cpu: "512m"
+    securityContext:
+      privileged: false
+    tty: false
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+    workingDir: "/home/jenkins/agent"
+  nodeSelector:
+    beta.kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  securityContext: {}
+  serviceAccount: "default"
+  volumes:
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+"""
+   }
     stages {
         stage('Setup Environment') {
             steps {
