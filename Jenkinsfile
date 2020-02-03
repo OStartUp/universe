@@ -57,7 +57,7 @@ spec:
     name: "workspace-volume"
 """
       }
-    }
+    
     stages {
         stage('Setup Environment') {
             steps {
@@ -104,6 +104,7 @@ spec:
             }
           }
         }
+    }
          post {
         //     always {
         //         archiveArtifacts artifacts: '*.png', fingerprint: true
