@@ -17,7 +17,7 @@ pipeline {
                     git --version
                     echo "Tags:"
                     git tag
-                    ll ./
+                    ls -al ./
                     echo "### Changed Files ###"
                     production_pointer is in:
                     git rev-list -n 1 production_pointer
