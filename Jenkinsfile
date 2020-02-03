@@ -15,7 +15,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### TESTING ###"
-                    ./test_impacted HEAD^ HEAD
+                    ./test_impacted production_pointer HEAD
                     """
             }
         }
