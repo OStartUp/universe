@@ -1,5 +1,15 @@
 pipeline {
     agent any
+    checkout([$class: 'GitSCM',
+                branches: [[name: '*/master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CloneOption',
+                        depth: 0,
+                        **noTags**: **false**,
+                        reference: '', shallow: false]],
+                submoduleCfg: [],
+                userRemoteConfigs: [[]]]
+            )
     stages {
         stage('Setup Environment') {
             steps {
