@@ -45,6 +45,7 @@ pipeline {
             always {
                 archiveArtifacts artifacts: '*.png', fingerprint: true
                // junit 'build/reports/**/*.xml'
+           }
         }
     }
 }
