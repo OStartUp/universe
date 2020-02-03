@@ -5,7 +5,7 @@ pipeline {
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[$class: 'CloneOption',
                         depth: 0,
-                        **noTags**: **false**,
+                        noTags: false,
                         reference: '', shallow: false]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[]]]
