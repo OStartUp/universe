@@ -9,7 +9,7 @@ cp .ci/bazel-2.0.0-linux-x86_64 ..
 
 
 echo 'Installing Helm 3'
-curl -fsSL -o get_helm.sh https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
+curl -fsSL -o helm-v3.0.3-linux-amd64.tar.gz https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
 tar xvzf helm-v3.0.3-linux-amd64.tar.gz
 cp linux-amd64/helm ./helm
 chmod +x ./helm
