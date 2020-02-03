@@ -28,7 +28,6 @@ pipeline {
                     git fetch --tag
                     echo "Tags:"
                     git tag
-                    ls -al ./
                     echo "### Changed Files ###"
                     production_pointer is in:
                     git rev-list -n 1 production_pointer
@@ -48,6 +47,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### TESTING ###"
+                    git fetch --tag
                     ./test_impacted production_pointer \${GIT_COMMIT}
                     """
             }
