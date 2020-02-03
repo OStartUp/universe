@@ -1,4 +1,4 @@
 echo 'Building'
-echo '$PATH'
+echo "$PATH"
 apt-get install bazel
 bazel version
