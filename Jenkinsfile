@@ -1,6 +1,6 @@
 pipeline {
     agent {
-    kubernetes {
+      kubernetes {
         label podlabel
         yaml """
 apiVersion: "v1"
@@ -59,6 +59,7 @@ spec:
       }
     }
     
+    agent any
     stages {
         stage('Setup Environment') {
             steps {
@@ -106,27 +107,27 @@ spec:
           }
         }
 
-        post {
+    //     post {
+    // //     always {
+    // //         archiveArtifacts artifacts: '*.png', fingerprint: true
+    // //        // junit 'build/reports/**/*.xml'
+    // //    }
     //     always {
+    //         echo 'One way or another, I have finished'
+    //         deleteDir() /* clean up our workspace */
+    //     }
+    //     success {
     //         archiveArtifacts artifacts: '*.png', fingerprint: true
-    //        // junit 'build/reports/**/*.xml'
-    //    }
-        always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
-        }
-        success {
-            archiveArtifacts artifacts: '*.png', fingerprint: true
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-        }
-        changed {
-            echo 'Things were different before...'
-        }   
+    //         echo 'I succeeeded!'
+    //     }
+    //     unstable {
+    //         echo 'I am unstable :/'
+    //     }
+    //     failure {
+    //         echo 'I failed :('
+    //     }
+    //     changed {
+    //         echo 'Things were different before...'
+    //     }   
     }
 }
