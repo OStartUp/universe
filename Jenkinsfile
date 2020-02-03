@@ -39,13 +39,12 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
+          }
         }
-       
-        post {
+         post {
             always {
                 archiveArtifacts artifacts: '*.png', fingerprint: true
                // junit 'build/reports/**/*.xml'
            }
-        }
     }
 }
