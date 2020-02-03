@@ -1,12 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Setup Environment') {
             steps {
-                echo 'Building'
-                echo '$PATH'
-                sudo apt-get install bazel
-                bazel version
+                sh .ci/setup
             }
         }
         stage('Test') {
