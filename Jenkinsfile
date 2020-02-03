@@ -18,7 +18,7 @@ pipeline {
                 sh '.ci/setup'
             }
         }
-        stage('Computing changes') {
+        stage('Computing changes and Dependency Graph') {
             steps {
                 sh  """
                     export PATH=\${PATH}:\$(pwd)
@@ -29,7 +29,7 @@ pipeline {
                     echo "Tags:"
                     git tag
                     echo "### Changed Files ###"
-                    production_pointer is in:
+                    echo "production_pointer is in:"
                     git rev-list -n 1 production_pointer
                     git diff --name-only production_pointer \${GIT_COMMIT}
                     echo "### Generating Dependency Graph ###"
