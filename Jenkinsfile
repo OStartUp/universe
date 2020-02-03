@@ -8,14 +8,15 @@ pipeline {
         }
         stage('Computing changes') {
             steps {
-                echo 'Testing..'
                 sh  """
                     export PATH=\${PATH}:\$(pwd)
                     echo ""
                     echo ""
                     echo ""
                     echo "### Changed Files ###"
-                    git diff --name-only production_pointer HEAD
+                    production_pointer is in:
+                    git rev-list -n 1 production_pointer
+                    git diff --name-only production_pointer \${GIT_COMMIT}
                     echo "### Generating Dependency Graph ###"
                     ./generates_deps
                     """
@@ -31,7 +32,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### TESTING ###"
-                    ./test_impacted production_pointer HEAD
+                    ./test_impacted production_pointer \${GIT_COMMIT}
                     """
             }
         }
