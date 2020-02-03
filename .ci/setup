@@ -1,4 +1,4 @@
 echo 'Building'
 echo "$PATH"
-.ci/bazel_bootstrap version
+USE_BAZEL_VERSION=2.0.0 .ci/bazel_bootstrap version
 bazel version
