@@ -36,7 +36,7 @@ pipeline {
                     """
             }
         }
-        stage('Pushing Impacted Images') {
+        stage('Publishing Impacted Images') {
             steps {
                 echo 'Pushing Imagess ..'
                 sh  """
@@ -49,20 +49,51 @@ pipeline {
                     """
             }
         }
-        stage('Deploy') {
+
+        stage('Repackaging Impacted Applications') {
             steps {
-                echo 'Deploying....'
+                echo 'Re-packaging..'
+                sh  """
+                    echo ""
+                    echo ""
+                    echo ""
+                    echo "### Creating Artifacts ###"
+                    ./artifact_impacted production_pointer \${GIT_COMMIT}
+                    echo "### Packaging Impacted Applications ###"
+                    echo ""
+                    echo ""
+                    echo ""
+                    find -L ./bazel-bin -name "APPLICATION.manifest" -delete
+                    ./list_applications_impacted   production_pointer \${GIT_COMMIT}| xargs -L 1 bazel build  --logging 0
+                    """
             }
-          }
         }
+
+        stage('Publishing Changes') {
+            steps {
+                sh  """
+                    find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
+                    cat .changed_applications
+    
+                    rm -rf artifacts
+                    mkdir -p artifacts
+                    while read artifact; do
+                        echo "Publishing: $artifact"
+                        ZIP_ARTIFACT=$(cat $artifact | cut -d " " -f 2)
+                        cp -v $ZIP_ARTIFACT artifacts/
+                    done <.changed_applications
+                    """
+            }
+        }
+    }
 
     post {
         always {
-            echo 'One way or another, I have finished'
+            archiveArtifacts artifacts: '*.png', fingerprint: true
         }
         success {
-            archiveArtifacts artifacts: '*.png', fingerprint: true
             echo 'I succeeeded!'
+            archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
         }
         unstable {
             echo 'I am unstable :/'
