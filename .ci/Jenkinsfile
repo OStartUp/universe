@@ -7,7 +7,6 @@ pipeline {
         stage('Computing Changes') {
             steps {
                 sh  """
-                    echo $PATH
                     echo ""
                     echo ""
                     echo ""
@@ -44,7 +43,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### Push Impacted ###"
-                    docker login --username \$DOCKERHUB_CREDS_USR -p  \$DOCKERHUB_CREDS_PSW
+                    docker login --username \${DOCKERHUB_CREDS_USR} -p  \${DOCKERHUB_CREDS_PSW}
                     ./push_impacted production_pointer \${GIT_COMMIT}
                     """
             }
@@ -80,7 +79,7 @@ pipeline {
                     mkdir -p artifacts
                     while read artifact; do
                         echo "Publishing: \${artifact}"
-                        ZIP_ARTIFACT=$(cat \${artifact} | cut -d " " -f 2)
+                        ZIP_ARTIFACT=\$(cat \${artifact} | cut -d " " -f 2)
                         cp -v \${ZIP_ARTIFACT} artifacts/
                     done < .changed_applications
                     """
