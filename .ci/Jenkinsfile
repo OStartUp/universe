@@ -77,19 +77,3 @@ pipeline {
     }
 }
 
-
-
-
-
-echo ""
-echo ""
-echo ""
-echo "### Creating Artifacts ###"
-./artifact_impacted $HEADP $HEAD
-
-echo ""
-echo ""
-echo "" 
-echo "### Packaging Impacted Applications ###"
-find -L ./bazel-bin -name "APPLICATION.manifest" -delete
-./list_applications_impacted  $HEADP $HEAD| xargs -L 1 bazel build  --logging 0
