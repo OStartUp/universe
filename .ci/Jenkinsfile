@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Publishing Impacted Images') {
             steps {
-                echo 'Pushing Imagess ..'
+                echo 'Pushing Imagess..'
                 sh  """
                     echo ""
                     echo ""
@@ -71,6 +71,7 @@ pipeline {
 
         stage('Publishing Changes') {
             steps {
+                echo 'Publishing..'
                 sh  """
                     find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
                     cat .changed_applications
@@ -78,10 +79,10 @@ pipeline {
                     rm -rf artifacts
                     mkdir -p artifacts
                     while read artifact; do
-                        echo "Publishing: \$artifact"
-                        ZIP_ARTIFACT=$(cat \$artifact | cut -d " " -f 2)
-                        cp -v \$ZIP_ARTIFACT artifacts/
-                    done <.changed_applications
+                        echo "Publishing: \${artifact}"
+                        ZIP_ARTIFACT=$(cat \${artifact} | cut -d " " -f 2)
+                        cp -v \${ZIP_ARTIFACT} artifacts/
+                    done < .changed_applications
                     """
             }
         }
