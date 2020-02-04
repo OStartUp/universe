@@ -90,11 +90,10 @@ pipeline {
 
     post {
         always {
-           echo 'Allways!'
+           archiveArtifacts artifacts: '**/*.log', fingerprint: true
         }
         success {
             echo 'I succeeeded!'
-            
         }
         unstable {
             echo 'I am unstable :/'
