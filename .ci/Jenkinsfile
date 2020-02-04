@@ -1,8 +1,7 @@
 pipeline {
     agent any;
-    parameters {
-        string(defaultValue: "", description: 'Docker Hub User', name: 'DockerHubUser')
-        string(defaultValue: "", description: 'Docker Hub Token', name: 'DockerHubToken')
+    environment {
+    DOCKERHUB_CREDS = credentials('dockerhub')
     }
     stages {
         stage('Computing Changes') {
@@ -45,7 +44,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### Push Impacted ###"
-                    docker login --username ${params.DockerHubUser} -p  ${params.DockerHubToken} 
+                    docker login --username \$DOCKERHUB_CREDS_USR -p  \$DOCKERHUB_CREDS_PSW
                     ./push_impacted production_pointer \${GIT_COMMIT}
                     """
             }
