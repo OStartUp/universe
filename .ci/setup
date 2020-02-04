@@ -18,3 +18,6 @@ chmod +x ./helm
 
 
 
+curl -fsSL -o bazel-2.0.0-installer-linux-x86_64.sh https://releases.bazel.build/2.0.0/release/bazel-2.0.0-installer-linux-x86_64.sh
+chmod +x bazel-2.0.0-installer-linux-x86_64.sh
+./bazel-2.0.0-installer-linux-x86_64.sh 

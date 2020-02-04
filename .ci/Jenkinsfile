@@ -1,11 +1,6 @@
 pipeline {
     agent any;
     stages {
-        stage('Setup Environment') {
-            steps {
-                sh '.ci/setup'
-            }
-        }
         stage('Computing changes and Dependency Graph') {
             steps {
                 sh  """
@@ -48,10 +43,6 @@ pipeline {
         }
 
     post {
-    //     always {
-    //         archiveArtifacts artifacts: '*.png', fingerprint: true
-    //        // junit 'build/reports/**/*.xml'
-    //    }
         always {
             echo 'One way or another, I have finished'
         }
