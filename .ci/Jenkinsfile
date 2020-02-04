@@ -1,7 +1,11 @@
 pipeline {
     agent any;
+    parameters {
+        string(defaultValue: "", description: 'Docker Hub User', name: 'DockerHubUser')
+        string(defaultValue: "", description: 'Docker Hub Token', name: 'DockerHubToken')
+    }
     stages {
-        stage('Computing changes and Dependency Graph') {
+        stage('Computing Changes') {
             steps {
                 sh  """
                     echo $PATH
@@ -21,7 +25,7 @@ pipeline {
                 
             }
         }
-        stage('Unit Test') {
+        stage('Impacted Unit Test') {
             steps {
                 echo 'Testing..'
                 sh  """
@@ -29,8 +33,20 @@ pipeline {
                     echo ""
                     echo ""
                     echo "### TESTING ###"
-                    git fetch --tag
                     ./test_impacted production_pointer \${GIT_COMMIT}
+                    """
+            }
+        }
+        stage('Pushing Impacted Images') {
+            steps {
+                echo 'Pushing Imagess ..'
+                sh  """
+                    echo ""
+                    echo ""
+                    echo ""
+                    echo "### Push Impacted ###"
+                    docker login --username ${params.DockerHubUser} -p  ${params.DockerHubToken} 
+                    ./push_impacted production_pointer \${GIT_COMMIT}
                     """
             }
         }
@@ -60,3 +76,20 @@ pipeline {
         }   
     }
 }
+
+
+
+
+
+echo ""
+echo ""
+echo ""
+echo "### Creating Artifacts ###"
+./artifact_impacted $HEADP $HEAD
+
+echo ""
+echo ""
+echo "" 
+echo "### Packaging Impacted Applications ###"
+find -L ./bazel-bin -name "APPLICATION.manifest" -delete
+./list_applications_impacted  $HEADP $HEAD| xargs -L 1 bazel build  --logging 0
