@@ -78,9 +78,9 @@ pipeline {
                     rm -rf artifacts
                     mkdir -p artifacts
                     while read artifact; do
-                        echo "Publishing: $artifact"
-                        ZIP_ARTIFACT=$(cat $artifact | cut -d " " -f 2)
-                        cp -v $ZIP_ARTIFACT artifacts/
+                        echo "Publishing: \$artifact"
+                        ZIP_ARTIFACT=$(cat \$artifact | cut -d " " -f 2)
+                        cp -v \$ZIP_ARTIFACT artifacts/
                     done <.changed_applications
                     """
             }
