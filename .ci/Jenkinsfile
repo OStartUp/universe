@@ -20,7 +20,7 @@ pipeline {
                     echo "### Generating Dependency Graph ###"
                     ./generates_deps
                     """
-                
+                archiveArtifacts artifacts: '*.png', fingerprint: true
             }
         }
         stage('Impacted Unit Test') {
@@ -83,17 +83,18 @@ pipeline {
                         cp -v \${ZIP_ARTIFACT} artifacts/
                     done < .changed_applications
                     """
+                archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '*.png', fingerprint: true
+           
         }
         success {
             echo 'I succeeeded!'
-            archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
+            
         }
         unstable {
             echo 'I am unstable :/'
