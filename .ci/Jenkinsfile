@@ -4,7 +4,7 @@ pipeline {
         stage('Computing changes and Dependency Graph') {
             steps {
                 sh  """
-                    export PATH=\${PATH}:\$(pwd)
+                    echo $PATH
                     echo ""
                     echo ""
                     echo ""
@@ -25,7 +25,6 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh  """
-                    export PATH=\${PATH}:\$(pwd)
                     echo ""
                     echo ""
                     echo ""
