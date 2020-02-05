@@ -7,8 +7,6 @@ pipeline {
         stage('Computing Changes') {
             steps {
                 sh  """
-                    env
-                    docker info
                     echo ""
                     echo ""
                     echo ""

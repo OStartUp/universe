@@ -7,7 +7,7 @@ then
 	echo ""
     echo ""
     echo "Zipping Artifacts"
-    cat  /tmp/impacted_rules | grep "ZIP_ARTIFACT" | xargs -L 1 bazel build   
+    cat  /tmp/impacted_rules | grep "_package" | xargs -L 1 bazel build   
 else
 	echo ""
     echo ""

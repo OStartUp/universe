@@ -59,7 +59,7 @@ echo ""
 echo ""
 echo ""
 echo "### Deploying Impacted ###"
-./deploy_impacted  $HEADP $HEAD
+# ./deploy_impacted  $HEADP $HEAD
 
 
 

@@ -55,10 +55,10 @@ def artifact_manifest(name, zip_file):
         )
 
 
-def gen_zip(srcs):
-    artifact_manifest(name = "APPLICATION", zip_file = ":ZIP_ARTIFACT")
+def gen_zip(name, srcs):
+    artifact_manifest(name = "APPLICATION", zip_file = name + "_package")
     pkg_zip(
-        name = "ZIP_ARTIFACT",
+        name = name  + "_package",
         srcs = srcs #+ [":BUILDINFO"],
     )
     # native.genrule(
@@ -126,6 +126,7 @@ done
         srcs = sha256_list,
     )
     gen_zip(
+        name = name,
         srcs = [
             ":"+chart_name,
             ":ENVIRONMENT_CONFIG", 
