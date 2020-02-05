@@ -3,6 +3,7 @@ bazel-out
 bazel-testlogs
 bazel-universe
 .changed_applications
+CI.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
