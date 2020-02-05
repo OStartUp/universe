@@ -85,7 +85,7 @@ def push(name, image, repository, registry):
 
 def application(name, helm_srcs, images, config_srcs, registry, update_deps):
     all_info = [(name, name.split(":")[-1]+"_PUSHER", images[name] ) for name in images.keys()]
-    chart_name = name + "_CHART" 
+    chart_name = name
     helm_chart(
         name = chart_name, 
         srcs = helm_srcs, # + [pusher for (_, pusher, _) in all_info],
