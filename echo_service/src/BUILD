@@ -24,7 +24,8 @@ py3_image(
 container_test(
     name = "StructureTests",
     image = ":echo-image",
-    configs = [":tests/structure.yaml"]
+    configs = [":tests/structure.yaml"],
+    driver = "tar"
 )
 
 
