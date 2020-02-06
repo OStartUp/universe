@@ -83,41 +83,7 @@ pipeline {
             steps {
                 echo 'Publishing..'
                 sh  """
-                    find -L ./bazel-bin -name "APPLICATION.manifest" > .changed_applications
-                    cat .changed_applications
-    
-                    rm -rf artifacts
-                    mkdir -p artifacts
-                    while read artifact; do
-                        ROOT_DIR=\$(pwd)
-                        echo "Publishing: \${artifact}"
-                        ZIP_ARTIFACT=\$(cat \${artifact} | cut -d " " -f 2)
-                        cp -v \${ZIP_ARTIFACT} artifacts/
-                        
-                        echo "Expanding: \$ZIP_ARTIFACT"
-                        rm -rf /tmp/current_deploy
-                        mkdir -p /tmp/current_deploy
-                        unzip \$ZIP_ARTIFACT -d /tmp/current_deploy
-
-                        cd /tmp/current_deploy
-                        chart=(*_chart.tar.gz)
-                        chart_name=\$(echo \$chart | sed 's/_chart.tar.gz\$//')
-                        
-                        echo "Creating manifest for \$chart in \$chart_name namespace"
-                        helm template \$chart_name \$chart  -f sha256.yaml -f local.yaml > manifest.yaml
-                        mkdir -p /tmp/artifacts/\${chart_name}
-                        cp manifest.yaml /tmp/artifacts/\${chart_name}
-                        cd /tmp/artifacts
-                        git add .
-                        git commit -a -m "New artifact"
-                        git push
-                        cd -
-                        echo "Images:"
-                        cat sha256.yaml
-                        cd \$ROOT_DIR 2> /dev/null
-  
-                                                
-                    done < .changed_applications
+                    .ci/publish 
                     """
                 archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
             }
