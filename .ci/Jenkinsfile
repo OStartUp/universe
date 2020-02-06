@@ -5,6 +5,11 @@ pipeline {
     GITHUB_CREDS = credentials('github_artifact_token')
     }
     stages {
+        stage("Fetching Git Tags"){
+            step {
+                sh "git fetch --tag"
+            }
+        }
         // stage('Computing Changes') {
         //     steps {
         //         sh  """
