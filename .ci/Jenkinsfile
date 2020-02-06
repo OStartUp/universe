@@ -101,7 +101,7 @@ pipeline {
 
                         cd /tmp/current_deploy
                         chart=(*_chart.tar.gz)
-                        chart_name=$(echo $chart | sed 's/_chart.tar.gz$//')
+                        chart_name=\$(echo $chart | sed 's/_chart.tar.gz$//')
                         
                         echo "Creating manifest for $chart in $chart_name namespace"
                         helm template $chart_name $chart  -f sha256.yaml -f local.yaml > manifest.yaml
