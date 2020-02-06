@@ -6,7 +6,7 @@ pipeline {
     }
     stages {
         stage("Fetching Git Tags"){
-            step {
+            steps {
                 sh "git fetch --tag"
             }
         }
