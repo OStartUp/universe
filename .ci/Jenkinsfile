@@ -2,6 +2,7 @@ pipeline {
     agent any;
     environment {
     DOCKERHUB_CREDS = credentials('dockerhub')
+    GITHUB_CREDS = credentials('github_artifact_token')
     }
     stages {
         stage('Computing Changes') {
@@ -68,6 +69,16 @@ pipeline {
             }
         }
 
+
+        stage('Geting Artifact Repo') {
+            steps {
+                sh  """
+                    cd /tmp
+                    git clone https://\${DOCKERHUB_CREDS_USR}:\${DOCKERHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+                    """
+            }   
+        }
+
         stage('Publishing Changes') {
             steps {
                 echo 'Publishing..'
@@ -78,9 +89,34 @@ pipeline {
                     rm -rf artifacts
                     mkdir -p artifacts
                     while read artifact; do
+                        ROOT_DIR=\$(pwd)
                         echo "Publishing: \${artifact}"
                         ZIP_ARTIFACT=\$(cat \${artifact} | cut -d " " -f 2)
                         cp -v \${ZIP_ARTIFACT} artifacts/
+                        
+                        echo "Expanding: $ZIP_ARTIFACT"
+                        rm -rf /tmp/current_deploy
+                        mkdir -p /tmp/current_deploy
+                        unzip $ZIP_ARTIFACT -d /tmp/current_deploy
+
+                        cd /tmp/current_deploy
+                        chart=(*_chart.tar.gz)
+                        chart_name=$(echo $chart | sed 's/_chart.tar.gz$//')
+                        
+                        echo "Creating manifest for $chart in $chart_name namespace"
+                        helm template $chart_name $chart  -f sha256.yaml -f local.yaml > manifest.yaml
+                        mkdir -p /tmp/artifacts/\${chart_name}
+                        cp manifest.yaml /tmp/artifacts/\${chart_name}
+                        cd /tmp/artifacts
+                        git add .
+                        git commit -a -m "New artifact"
+                        git push
+                        cd -
+                        echo "Images:"
+                        cat sha256.yaml
+                        cd \$ROOT_DIR 2> /dev/null
+  
+                                                
                     done < .changed_applications
                     """
                 archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
