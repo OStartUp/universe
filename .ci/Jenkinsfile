@@ -8,6 +8,7 @@ pipeline {
         stage("Fetching Git Tags"){
             steps {
                 sh "git fetch --tag"
+                sh "git rev-parse  HEAD > commit_hash.log "
             }
         }
         // stage('Computing Changes') {
@@ -90,7 +91,7 @@ pipeline {
                 sh  """
                     .ci/publish 
                     """
-                //archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
+                archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
             }
         }
     }
