@@ -90,7 +90,7 @@ pipeline {
                 sh  """
                     .ci/publish 
                     """
-                archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
+                //archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
             }
         }
     }
