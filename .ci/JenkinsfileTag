@@ -14,6 +14,7 @@ pipeline {
                 sh  """
                     cd /tmp
                     git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+                    git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/universe.git
                     """
             }   
         }
@@ -22,6 +23,7 @@ pipeline {
             steps {
 
                 sh  """
+                    cd /tmp/universe
                     git tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
                     git push
                     """
