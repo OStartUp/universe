@@ -22,7 +22,7 @@ pipeline {
             steps {
 
                 sh  """
-                    tag -f production_pointer $(cat /tmp/artifacts/commit_hash.log)
+                    tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
                     """
             }
         }
