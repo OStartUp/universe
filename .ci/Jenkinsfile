@@ -100,8 +100,10 @@ pipeline {
                 sh  """
                     cp -v commit_hash.log /tmp/artifacts
                     .ci/publish 
+                    echo  GIT_COMMIT=\${GIT_COMMIT} > build.properties
                     """
                 archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+                archiveArtifacts 'build.properties'
             }
         }
     }

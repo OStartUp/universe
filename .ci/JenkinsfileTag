@@ -1,0 +1,32 @@
+pipeline {
+    agent any;
+    environment {
+        GITHUB_CREDS = credentials('github_artifact_token')
+    }
+    stages {
+        stage("Fetching Git Tags"){
+            steps {
+                sh "git rev-parse  HEAD > commit_hash.log "
+            }
+        }
+        stage('Geting Artifact Repo') {
+            steps {
+                sh  """
+                    cd /tmp
+                    git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+                    """
+            }   
+        }
+
+        stage('Tagging Current Repo') {
+            steps {
+
+                sh  """
+                    tag -f production_pointer $(cat /tmp/artifacts/commit_hash.log)
+                    """
+            }
+        }
+    }
+
+}
+
