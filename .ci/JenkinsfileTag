@@ -25,7 +25,7 @@ pipeline {
                 sh  """
                     cd /tmp/universe
                     git tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
-                    git push -f origingit pu production_pointer
+                    git push -f origin production_pointer
                     """
             }
         }
