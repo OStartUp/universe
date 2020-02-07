@@ -85,14 +85,14 @@ pipeline {
         }
 
 
-        // stage('Geting Artifact Repo') {
-        //     steps {
-        //         sh  """
-        //             cd /tmp
-        //             git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
-        //             """
-        //     }   
-        // }
+        stage('Geting Artifact Repo') {
+            steps {
+                sh  """
+                    cd /tmp
+                    git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+                    """
+            }   
+        }
 
         stage('Publishing Changes') {
             steps {
