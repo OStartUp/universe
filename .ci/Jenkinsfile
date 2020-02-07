@@ -11,37 +11,36 @@ pipeline {
                 sh "git rev-parse  HEAD > commit_hash.log "
             }
         }
-        // stage('Computing Changes') {
-        //     steps {
-        //         sh  """
-        //             echo ""
-        //             echo ""
-        //             echo ""
-        //             git fetch --tag
-        //             echo "Tags:"
-        //             git tag
-        //             echo "### Changed Files ###"
-        //             echo "production_pointer is in:"
-        //             git rev-list -n 1 production_pointer
-        //             git diff --name-only production_pointer \${GIT_COMMIT}
-        //             echo "### Generating Dependency Graph ###"
-        //             ./generates_deps
-        //             """
-        //         archiveArtifacts artifacts: '*.png', fingerprint: true
-        //     }
-        // }
-        // stage('Impacted Unit Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //         sh  """
-        //             echo ""
-        //             echo ""
-        //             echo ""
-        //             echo "### TESTING ###"
-        //             ./test_impacted production_pointer \${GIT_COMMIT}
-        //             """
-        //     }
-        // }
+        stage('Computing Changes') {
+            steps {
+                sh  """
+                    echo ""
+                    echo ""
+                    echo ""
+                    echo "Tags:"
+                    git tag
+                    echo "### Changed Files ###"
+                    echo "production_pointer is in:"
+                    git rev-list -n 1 production_pointer
+                    git diff --name-only production_pointer \${GIT_COMMIT}
+                    echo "### Generating Dependency Graph ###"
+                    ./generates_deps
+                    """
+                archiveArtifacts artifacts: '*.png', fingerprint: true
+            }
+        }
+        stage('Impacted Unit Test') {
+            steps {
+                echo 'Testing..'
+                sh  """
+                    echo ""
+                    echo ""
+                    echo ""
+                    echo "### TESTING ###"
+                    ./test_impacted production_pointer \${GIT_COMMIT}
+                    """
+            }
+        }
         stage('Publishing Impacted Images') {
             steps {
                 echo 'Pushing Imagess..'
