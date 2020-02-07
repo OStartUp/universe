@@ -4,6 +4,7 @@ pipeline {
         pollSCM('* * * * *') 
     }
     options { 
+        disableConcurrentBuilds()
         quietPeriod(5) 
     }
     environment {
