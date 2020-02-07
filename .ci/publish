@@ -23,23 +23,23 @@ while read artifact; do
     
     echo "Creating manifest for $chart in $chart_name namespace"
     helm template $chart_name $chart  -f sha256.yaml -f local.yaml > manifest.yaml
-    rm -rfv /tmp/artifacts/${chart_name}
-    mkdir -p /tmp/artifacts/${chart_name}
-    cp manifest.yaml /tmp/artifacts/${chart_name}
+    rm -rf $ROOT_DIR/artifacts/${chart_name}/
+    mkdir -rf $ROOT_DIR/artifacts/${chart_name}/
+    cp -v manifest.yaml /tmp/artifacts/${chart_name}/
 
     echo "Current Images:"
     cat sha256.yaml
     cd $ROOT_DIR 2> /dev/null
 done < .changed_applications
 
-echo ""
-echo ""
-echo "Pushing Articacts to Git repo"
-cd /tmp/artifacts
-echo ""
-ls -R
-echo ""
-git add .
-git commit -a -m "New artifacts"
-git push
-cd -
+#echo ""
+#echo ""
+#echo "Pushing Articacts to Git repo"
+#cd /tmp/artifacts
+#echo ""
+#ls -R
+#echo ""
+#git add .
+#git commit -a -m "New artifacts"
+#git push
+#cd -

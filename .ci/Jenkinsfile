@@ -14,7 +14,7 @@ pipeline {
         stage("Fetching Git Tags"){
             steps {
                 script {
-                    currentBuild.displayName = "Commit: " + env.GIT_COMMIT + " / Build Number:" + currentBuild.displayName
+                    currentBuild.displayName = "Build: " + currentBuild.displayName + " / Commit: " + env.GIT_COMMIT 
                 }
                 sh "git fetch --tag"
                 sh "git rev-parse  HEAD > commit_hash.log "
@@ -84,14 +84,14 @@ pipeline {
         }
 
 
-        stage('Geting Artifact Repo') {
-            steps {
-                sh  """
-                    cd /tmp
-                    git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
-                    """
-            }   
-        }
+        // stage('Geting Artifact Repo') {
+        //     steps {
+        //         sh  """
+        //             cd /tmp
+        //             git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+        //             """
+        //     }   
+        // }
 
         stage('Publishing Changes') {
             steps {
@@ -100,7 +100,7 @@ pipeline {
                     cp -v commit_hash.log /tmp/artifacts
                     .ci/publish 
                     """
-                archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
+                archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
             }
         }
     }
