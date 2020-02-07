@@ -89,7 +89,7 @@ pipeline {
             steps {
                 sh  """
                     cd /tmp
-                    git clone https://\${GITHUB_CREDS_USR}:\${GITHUB_CREDS_PSW}@github.com/OStartUp/artifacts.git
+                    git clone https://github.com/OStartUp/artifacts.git
                     """
             }   
         }
