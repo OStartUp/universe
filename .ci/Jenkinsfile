@@ -3,6 +3,9 @@ pipeline {
     triggers { 
         pollSCM('* * * * *') 
     }
+    options { 
+        quietPeriod(5) 
+    }
     environment {
     DOCKERHUB_CREDS = credentials('dockerhub')
     GITHUB_CREDS = credentials('github_artifact_token')
@@ -91,6 +94,7 @@ pipeline {
             steps {
                 echo 'Publishing..'
                 sh  """
+                    cp -v commit_hash.log /tmp/artifacts
                     .ci/publish 
                     """
                 archiveArtifacts artifacts: 'artifacts/*', fingerprint: true
