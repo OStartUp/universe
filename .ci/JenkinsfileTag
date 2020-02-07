@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("Fetching Git Tags"){
             steps {
-                sh "git rev-parse  HEAD > commit_hash.log "
+                sh "git fetch --tag"
             }
         }
         stage('Geting Artifact Repo') {
@@ -22,7 +22,7 @@ pipeline {
             steps {
 
                 sh  """
-                    tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
+                    git tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
                     """
             }
         }
