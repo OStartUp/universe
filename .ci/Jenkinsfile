@@ -78,7 +78,7 @@ pipeline {
                     echo ""
                     echo ""
                     echo ""
-                    find -L ./bazel-bin -name "APPLICATION.manifest" -delete
+                    find -L ./bazel-bin -name "APPLICATION.manifest" -delete || true
                     ./list_applications_impacted   production_pointer \${GIT_COMMIT}| xargs -L 1 bazel build  --logging 0
                     """
             }
