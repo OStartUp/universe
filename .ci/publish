@@ -25,7 +25,7 @@ while read artifact; do
     helm template $chart_name $chart  -f sha256.yaml -f local.yaml > manifest.yaml
     rm -rf $ROOT_DIR/artifacts/${chart_name}/
     mkdir -p $ROOT_DIR/artifacts/${chart_name}/
-    cp -v manifest.yaml /tmp/artifacts/${chart_name}/
+    cp -v manifest.yaml $ROOT_DIR/artifacts/${chart_name}/
 
     echo "Current Images:"
     cat sha256.yaml
