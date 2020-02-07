@@ -14,7 +14,8 @@ pipeline {
         stage("Fetching Git Tags"){
             steps {
                 script {
-                    currentBuild.displayName = "Build: " + currentBuild.displayName + " / Commit: " + env.GIT_COMMIT 
+                    currentBuild.displayName = "Build: " + currentBuild.displayName 
+                    // + " / Commit: " + env.GIT_COMMIT 
                 }
                 sh "git fetch --tag"
                 sh "git rev-parse  HEAD > commit_hash.log "
