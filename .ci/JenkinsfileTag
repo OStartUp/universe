@@ -23,7 +23,6 @@ pipeline {
 
                 sh  """
                     git tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
-                    git commit -a -m "Production Pointer"
                     git push
                     """
             }
