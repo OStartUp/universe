@@ -103,8 +103,6 @@ pipeline {
                     .ci/publish 
                     echo  GIT_COMMIT=\${GIT_COMMIT} > build.properties
                     """
-                archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
-                archiveArtifacts 'build.properties'
             }
         }
     }
@@ -115,6 +113,8 @@ pipeline {
         }
         success {
             echo 'I succeeeded!'
+            archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+            archiveArtifacts 'build.properties'
         }
         unstable {
             echo 'I am unstable :/'
