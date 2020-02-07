@@ -8,7 +8,7 @@ pipeline {
     }
     environment {
     DOCKERHUB_CREDS = credentials('dockerhub')
-    GITHUB_CREDS = credentials('github_artifact_token')
+    // GITHUB_CREDS = credentials('github_artifact_token')
     }
     stages {
         stage("Fetching Git Tags"){
