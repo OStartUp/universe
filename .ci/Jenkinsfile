@@ -75,7 +75,6 @@ pipeline {
                     echo ""
                     echo "### Creating Artifacts ###"
                     mkdir -p artifacts/
-                    touch artifacts/.noempty
                     ./artifact_impacted production_pointer \${GIT_COMMIT}
                     echo "### Packaging Impacted Applications ###"
                     echo ""

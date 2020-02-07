@@ -5,6 +5,7 @@ cat .changed_applications
 
 rm -rf artifacts
 mkdir -p artifacts
+touch artifacts/.noempty
 while read artifact; do
     ROOT_DIR=$(pwd)
     echo $ROOT_DIR
