@@ -12,8 +12,8 @@ pipeline {
         GITHUB_CREDS = credentials('github_artifact_token')
     }
     stages {
-        when { changeset "**"}
         stage("Fetching Git Tags"){
+             //when { changeset "**"}
             steps {
                 script {
                     currentBuild.displayName = "Build: " + currentBuild.displayName 
