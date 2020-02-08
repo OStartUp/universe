@@ -5,13 +5,14 @@ pipeline {
     }
     options { 
         disableConcurrentBuilds()
-        quietPeriod(120) 
+        quietPeriod(60) 
     }
     environment {
         DOCKERHUB_CREDS = credentials('dockerhub')
         GITHUB_CREDS = credentials('github_artifact_token')
     }
     stages {
+        when { changeset "**"}
         stage("Fetching Git Tags"){
             steps {
                 script {
