@@ -3,6 +3,9 @@ pipeline {
     environment {
         GITHUB_CREDS = credentials('github_artifact_token')
     }
+    options { 
+        disableConcurrentBuilds()
+    }
     stages {
         stage("Fetching Git Tags"){
             steps {
