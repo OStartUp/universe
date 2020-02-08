@@ -5,7 +5,7 @@ pipeline {
     }
     options { 
         disableConcurrentBuilds()
-        quietPeriod(60) 
+        //quietPeriod(30) 
     }
     environment {
         DOCKERHUB_CREDS = credentials('dockerhub')
