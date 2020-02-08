@@ -78,7 +78,7 @@ def echo(path):
         'form' : extract(request.form),
         'json' : request.json,
         'cookies' : extract(request.cookies),
-        'service': "NONO"
+        'service': "echo"
     }
 
     if config[VERBOSE]:
