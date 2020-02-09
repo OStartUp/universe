@@ -74,4 +74,5 @@ prometheus-operator:
     adminPassword: admin
     ingress:
       enabled: true
-      hosts: telemetry
+      hosts: 
+        - telemetry
