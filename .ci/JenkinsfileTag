@@ -29,6 +29,10 @@ pipeline {
                     cd /tmp/universe
                     git tag -f production_pointer \$(cat /tmp/artifacts/commit_hash.log)
                     git push -f origin production_pointer
+                    cd /tmp/artifacts
+                    TAG=\$(date "+production-%Y-%m-%d--%H-%M-%S") 
+                    git tag -f $TAG
+                    git push -f origin $TAG
                     """
             }
         }
