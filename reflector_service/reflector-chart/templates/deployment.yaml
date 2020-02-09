@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: reflector
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reflector-deploy
+    spec:
+      containers:
+        - name: reflector-server
+          image: marcecaro/reflector@{{ (index .Values.sha256 "marcecaro/reflector") }}
+          imagePullPolicy: Always
+          # ports:
+          # - containerPort: 5000
+ 
