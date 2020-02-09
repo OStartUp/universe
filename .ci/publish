@@ -27,7 +27,7 @@ while read artifact; do
     if [ -f "sha256.yaml" ]; then
         SHA256_MAP="-f sha256.yaml"
     fi
-    helm template $chart_name $chart  $SHA256_MAP -f local.yaml > manifest.yaml
+    helm template --include-crds $chart_name $chart  $SHA256_MAP -f local.yaml > manifest.yaml
     rm -rfv /tmp/artifacts/${chart_name}
     mkdir -p /tmp/artifacts/${chart_name}
     cp manifest.yaml /tmp/artifacts/${chart_name}
