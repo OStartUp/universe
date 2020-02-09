@@ -23,7 +23,11 @@ while read artifact; do
     chart_name=$(echo $chart | sed 's/_chart.tar.gz$//')
     
     echo "Creating manifest for $chart in $chart_name namespace"
-    helm template $chart_name $chart  -f sha256.yaml -f local.yaml > manifest.yaml
+    SHA256_MAP=""                      ## Covering the case when all the images are externals
+    if [ -f "sha256.yaml" ]; then
+        SHA256_MAP="-f sha256.yaml"
+    fi
+    helm template $chart_name $chart  $SHA256_MAP -f local.yaml > manifest.yaml
     rm -rfv /tmp/artifacts/${chart_name}
     mkdir -p /tmp/artifacts/${chart_name}
     cp manifest.yaml /tmp/artifacts/${chart_name}
