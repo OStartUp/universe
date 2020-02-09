@@ -31,8 +31,8 @@ pipeline {
                     git push -f origin production_pointer
                     cd /tmp/artifacts
                     TAG=\$(date "+production-%Y-%m-%d--%H-%M-%S") 
-                    git tag -f $TAG
-                    git push -f origin $TAG
+                    git tag -f \$TAG
+                    git push -f origin \$TAG
                     """
             }
         }
