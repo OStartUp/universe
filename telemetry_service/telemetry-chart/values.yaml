@@ -76,3 +76,5 @@ prometheus-operator:
       enabled: true
       hosts: 
         - telemetry
+
+
