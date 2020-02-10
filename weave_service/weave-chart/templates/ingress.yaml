@@ -7,10 +7,10 @@ metadata:
 #    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
+  - host: weave
+    http:
       paths:
       - path: /
-        host: weave
         backend:
           serviceName: weave-weave-chart
           servicePort: 80
