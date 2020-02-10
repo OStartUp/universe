@@ -1,0 +1,6 @@
+dependencies:
+- name: weave-scope
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.1.8
+digest: sha256:4d35b9accf8cbd85c1b92147fb9009e17b4414d5425221ab10b06b6b5cea3058
+generated: "2020-02-09T18:01:11.824157158-08:00"
