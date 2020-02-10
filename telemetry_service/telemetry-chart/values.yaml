@@ -80,9 +80,12 @@ prometheus-operator:
   prometheusOperator:
     admissionWebhooks:
       enabled: false
+      patch:
+         enabled: false
+  
   prometheus:
     servicePerReplica:
       enabled: false
   alertmanager:
     enabled: false
-    
+  
