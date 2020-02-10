@@ -3,13 +3,14 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: weave
-  annotations:
-   nginx.ingress.kubernetes.io/rewrite-target: /
+#   annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
       paths:
-      - path: /weave
+      - path: /
+        host: weave
         backend:
           serviceName: weave-weave-chart
           servicePort: 80
