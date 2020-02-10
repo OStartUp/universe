@@ -1,10 +1,10 @@
 
 apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+kind: git
 metadata:
   name: weave
-  #annotations:
-  #  nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations:
+   nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
