@@ -5,6 +5,7 @@ from optparse import OptionParser
 from pprint import pprint
 import time
 from loggerlib.logger import logg
+import requests
 
 VERBOSE = 'verbose'
 BASIC_AUTH = 'basic_auth'
@@ -61,7 +62,7 @@ def echo(path):
     if not validate_status_code(status_code):
         status_code = 200
 
-    r  = request.get(url = "http://echo.echo.svc.cluster.local/echo") 
+    r  = requests.get(url = "http://echo.echo.svc.cluster.local/echo") 
     data = r.json()
 
     data = {

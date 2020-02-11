@@ -5,3 +5,4 @@ markupsafe
 werkzeug
 itsdangerous
 click
+requests
