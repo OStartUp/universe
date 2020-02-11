@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git fetch --tag
+
 
 
 HEADP=${1:-production_pointer}
@@ -10,7 +10,9 @@ set -e
 echo ""
 echo ""
 echo "### Changed Files ###"
-git diff --name-only $HEADP $HEAD
+git fetch --tag
+sleep 2
+git diff --name-only $HEADP $HEAD | less
 
 echo ""
 echo ""
