@@ -26,30 +26,22 @@ pipeline {
         stage('Computing Changes') {
             steps {
                 sh  """
-                    echo ""
-                    echo ""
-                    echo ""
-                    echo "Tags:"
-                    git tag
                     echo "### Changed Files ###"
                     echo "production_pointer is in:"
                     git rev-list -n 1 production_pointer
                     git diff --name-only production_pointer \${GIT_COMMIT}
                     echo "### Generating Dependency Graph ###"
-                    ./generates_deps
+                    .ci/generates_deps
                     """
-                archiveArtifacts artifacts: '*.png', fingerprint: true
+                archiveArtifacts artifacts: 'artifacts/*.png', fingerprint: true
             }
         }
         stage('Impacted Unit Test') {
             steps {
                 echo 'Testing..'
                 sh  """
-                    echo ""
-                    echo ""
-                    echo ""
                     echo "### TESTING ###"
-                    ./test_impacted production_pointer \${GIT_COMMIT}
+                    .ci/test_impacted production_pointer \${GIT_COMMIT}
                     """
             }
         }
@@ -57,12 +49,9 @@ pipeline {
             steps {
                 echo 'Pushing Imagess..'
                 sh  """
-                    echo ""
-                    echo ""
-                    echo ""
                     echo "### Push Impacted ###"
                     docker login --username \${DOCKERHUB_CREDS_USR} -p  \${DOCKERHUB_CREDS_PSW}
-                    ./push_impacted production_pointer \${GIT_COMMIT}
+                    .ci/push_impacted production_pointer \${GIT_COMMIT}
                     """
             }
         }
@@ -71,18 +60,14 @@ pipeline {
             steps {
                 echo 'Re-packaging..'
                 sh  """
-                    echo ""
-                    echo ""
-                    echo ""
+
                     echo "### Creating Artifacts ###"
                     mkdir -p artifacts/
-                    ./artifact_impacted production_pointer \${GIT_COMMIT}
+                    .ci/artifact_impacted production_pointer \${GIT_COMMIT}
                     echo "### Packaging Impacted Applications ###"
                     echo ""
-                    echo ""
-                    echo ""
                     find -L ./bazel-bin -name "APPLICATION.manifest" -delete || true
-                    ./list_applications_impacted   production_pointer \${GIT_COMMIT}| xargs -L 1 bazel build  --logging 0
+                    .ci/list_applications_impacted   production_pointer \${GIT_COMMIT}| xargs -L 1 bazel build  --logging 0
                     """
             }
         }
