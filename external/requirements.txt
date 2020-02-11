@@ -6,4 +6,7 @@ werkzeug
 itsdangerous
 click
 requests
+certifi
+chardet
+idna
 urllib3
