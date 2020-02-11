@@ -8,6 +8,8 @@ def testeable(param):
     return param
 
 def logg(msg):
-    config = decorate(getConfig())
-    print("{config} --> {msg}".format(config=config, msg=msg))
+    config = getConfig()
+    if config["decorate"]:
+        msg = decorate(msg)
+    print(msg)
     return msg

@@ -17,7 +17,7 @@ class TestConfig(unittest.TestCase):
     def test_logger(self):
         """Test one"""
         echo = logg("bbb")
-        self.assertTrue( echo == "bbb")
+        self.assertTrue( echo == "~~ bbb ~~")  ## Decorated log
 
 
 if __name__ == "__main__":
