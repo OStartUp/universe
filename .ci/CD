@@ -1,14 +1,16 @@
 #!/bin/bash
 
+git fetch --tag
 if ! git diff --quiet ; then
   echo 'The current repository is dirty'
   #exit 1
 fi
 
 
-HEADP=${1:-HEAD^}
-HEAD=${2:-HEAD} 
+HEADP=${1:-production_pointer}
+HEAD=$2 
 
+cd .ci
 set -e
 echo ""
 echo ""
@@ -22,11 +24,11 @@ echo ""
 echo "### SANITY ###"
 bazel query "deps(//...)" > /dev/null
 
-# echo ""
-# echo ""
-# echo ""
-# echo "### BUILDING ###"
-# ./build_impacted
+echo ""
+echo ""
+echo ""
+echo "### BUILDING ###"
+./build_impacted
 
 
 echo ""
