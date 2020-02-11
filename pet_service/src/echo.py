@@ -82,7 +82,7 @@ def echo(path):
         'form' : extract(request.form),
         'json' : request.json,
         'cookies' : extract(request.cookies),
-        'ECHO_REQUEST' : data,
+        'RODO_REQUEST' : data,
         'service': "pet"
     }
 
