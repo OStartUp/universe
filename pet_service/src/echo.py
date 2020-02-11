@@ -61,7 +61,7 @@ def echo(path):
     if not validate_status_code(status_code):
         status_code = 200
 
-    r  = requests.get(url = "http://echo.echo.svc.cluster.local/echo") 
+    r  = request.get(url = "http://echo.echo.svc.cluster.local/echo") 
     data = r.json()
 
     data = {
