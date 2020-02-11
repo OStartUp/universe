@@ -55,11 +55,11 @@ find -L ./bazel-bin -name "APPLICATION.manifest" -delete
 ./list_applications_impacted  $HEADP $HEAD| xargs -L 1 bazel build  --logging 0
 
 
-echo ""
-echo ""
-echo ""
-echo "### Deploying Impacted ###"
-# ./deploy_impacted  $HEADP $HEAD
+# echo ""
+# echo ""
+# echo ""
+# echo "### Deploying Impacted ###"
+# # ./deploy_impacted  $HEADP $HEAD
 
 
 
