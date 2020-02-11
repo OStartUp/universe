@@ -61,6 +61,9 @@ def echo(path):
     if not validate_status_code(status_code):
         status_code = 200
 
+    r  = requests.get(url = "http://echo.echo.svc.cluster.local/echo") 
+    data = r.json()
+
     data = {
         'success' : True,
         'status' : status_code,
@@ -78,6 +81,7 @@ def echo(path):
         'form' : extract(request.form),
         'json' : request.json,
         'cookies' : extract(request.cookies),
+        'ECHO_REQUEST' : data,
         'service': "pet"
     }
 
