@@ -11,5 +11,5 @@ def logg(msg):
     config = getConfig()
     if config["decorate"]:
         msg = decorate(msg)
-    print(msg)
+    print("RODO LOGGER | " + msg)
     return msg
