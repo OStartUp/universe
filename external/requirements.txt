@@ -6,3 +6,4 @@ werkzeug
 itsdangerous
 click
 requests
+urllib3

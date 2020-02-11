@@ -17,6 +17,7 @@ py3_image(
             requirement("itsdangerous"),
             requirement("click"),
             requirement("requests"),
+            requirement("urllib3"),
           ],
     data = [ "BUILD"],
 )
