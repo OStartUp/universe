@@ -8,7 +8,7 @@ py3_image(
     name = "pet-image",
     srcs = ["echo.py"],
     main = "echo.py",
-    layers = [ ## Is like , but layered
+    layers = [
             "//configlib:config", "//loggerlib:logger",
             requirement("flask"),
             requirement("jinja2"),

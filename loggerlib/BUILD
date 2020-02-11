@@ -14,20 +14,10 @@ py_library(
     deps = ["//configlib:config"],
 )
 
-
 filegroup(
     name = "srcs_dummy",
     srcs = ["BUILD"] + ["dummy.py"],
 )
-
-
-py_binary(
-    name = "dummy",
-    srcs = [":srcs_dummy"],
-    srcs_version = "PY3",
-    deps = [":logger"], 
-)
-
 
 py_test(
     name = "test_logger",
@@ -40,6 +30,14 @@ py_test(
     srcs = ["test/test_pretify.py", "pretify.py"],
 )
 
+
+
+py_binary(
+    name = "dummy",
+    srcs = [":srcs_dummy"],
+    srcs_version = "PY3",
+    deps = [":logger"], 
+)
 
 # test_suite(
 #     name = "test_all_logger",
