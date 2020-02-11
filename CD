@@ -1,10 +1,6 @@
 #!/bin/bash
 
 git fetch --tag
-if ! git diff --quiet ; then
-  echo 'The current repository is dirty'
-  #exit 1
-fi
 
 
 HEADP=${1:-production_pointer}
