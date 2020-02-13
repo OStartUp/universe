@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: test
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: test-deploy
+    spec:
+      containers:
+        - name: echo-server
+          image: marcecaro/test@{{ (index .Values.sha256 "marcecaro/test") }}
+          imagePullPolicy: Always
+          # ports:
+          # - containerPort: 5000
+ 
