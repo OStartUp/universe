@@ -26,7 +26,6 @@ def runtest(url):
     else:
         return False, "base_url != {url} | {base_url}".format(url=url, base_url=base_url)
 
-i#base_url":"http://echo.echo.svc.cluster.local/echo"
 
 @app.route('/runtests')
 def echo(path):
