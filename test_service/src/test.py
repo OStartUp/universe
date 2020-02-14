@@ -29,7 +29,7 @@ def runtest(url):
 
 
 @app.route('/runtests')
-def echo(path):
+def echo():
 
     data = {}
     data["services"] = {}
