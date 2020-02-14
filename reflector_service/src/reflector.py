@@ -89,7 +89,7 @@ def echo(path):
     return response
 
 def main():
-    logg("STARTING - WITH LOGG!!!!") 
+    logg("STARTING - WITH LOGG!!!!(2)") 
     parser = OptionParser()
     parser.add_option('--port', dest='port', default=5000, help='port to run server on - default 5000')
     parser.add_option('--host', dest='host', default='0.0.0.0', help='host to bind server on - default 0.0.0.0')
