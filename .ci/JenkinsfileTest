@@ -1,0 +1,12 @@
+pipeline {
+    agent any;
+    stages {
+        stage("Fetching Git Tags"){
+            steps {
+                sh """curl -s --fail http://test.test.svc.cluster.local/runtests"
+                sh """curl -s --fail http://test.test.svc.cluster.local/runtests | grep '"success":true'"""
+            }
+        }
+    }
+}
+
