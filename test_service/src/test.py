@@ -4,6 +4,7 @@ from werkzeug.routing import Rule
 from optparse import OptionParser
 from pprint import pprint
 import time
+import requests
 
 VERBOSE = 'verbose'
 BASIC_AUTH = 'basic_auth'

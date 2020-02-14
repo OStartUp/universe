@@ -15,6 +15,11 @@ py3_image(
             requirement("werkzeug"),
             requirement("itsdangerous"),
             requirement("click"),
+            requirement("requests"),
+            requirement("certifi"),
+            requirement("chardet"),
+            requirement("idna"),
+            requirement("urllib3"),
             
           ],
     data = [ "BUILD"],

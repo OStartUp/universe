@@ -10,7 +10,7 @@ spec:
         app: test-deploy
     spec:
       containers:
-        - name: echo-server
+        - name: test-server
           image: marcecaro/test@{{ (index .Values.sha256 "marcecaro/test") }}
           imagePullPolicy: Always
           # ports:
