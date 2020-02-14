@@ -11,6 +11,6 @@ application(
     helm_srcs = glob(["test-chart/**"]), 
     images = { "//test_service/src:test-image" : "marcecaro/test"}, 
     config_srcs = glob(["environments/**"]),
-    update_deps = True,
+    update_deps = False,
     registry = DOCKER_REGISTRY_URL
     )

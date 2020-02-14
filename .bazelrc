@@ -1,3 +1,3 @@
-build --workspace_status_command="bash getbuildinfo" --logging=0
+build --workspace_status_command="bash getbuildinfo" --verbose_failures 
 run --workspace_status_command="bash getbuildinfo" --logging=0
 query --logging=0
