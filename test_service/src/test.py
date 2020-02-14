@@ -21,7 +21,7 @@ app = Flask(__name__)
 def runtest(url):
     r  = requests.get(url)
     data = r.json()
-    base_url = data["base_url"]
+    base_url = data["base_url"] if "base_url" in data else "missing"
     if base_url == url:
         return True, "base_url is compliant"
     else:

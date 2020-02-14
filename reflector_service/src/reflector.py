@@ -68,7 +68,7 @@ def echo(path):
         'path' : request.path,
         'script_root' : request.script_root,
         'url' : request.url,
-        'base_url' : request.base_url,
+#        'base_url' : request.base_url,
         'url_root' : request.url_root,
         'method' : request.method,
         'headers' : extract(request.headers),
