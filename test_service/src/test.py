@@ -23,7 +23,7 @@ def runtest(url):
     data = r.json()
     base_url = data["base_url"]
     if base_url == url:
-        return True, ""
+        return True, "base_url is compliant"
     else:
         return False, "base_url != {url} | {base_url}".format(url=url, base_url=base_url)
 
