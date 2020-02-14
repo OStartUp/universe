@@ -1,4 +1,4 @@
-load("@com_github_tmc_rules_helm//helm:helm.bzl", "helm_chart")
+load(":helm.bzl", "helm_chart")
 load("@io_bazel_rules_docker//docker:docker.bzl", "docker_push")
 load("@rules_pkg//:pkg.bzl", "pkg_zip")
 
